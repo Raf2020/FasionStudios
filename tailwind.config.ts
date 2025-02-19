@@ -11,6 +11,14 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        "primary-blue": "#65FBFA",
+        "primary-purple": "#9307F0",
+      },
+      spacing: {
+        15: "3.75rem",
+      },
+      borderRadius: {
+        "4xl": "2rem",
       },
     },
   },
