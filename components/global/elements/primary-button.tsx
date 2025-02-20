@@ -7,7 +7,7 @@ const PrimaryButton = ({
 }) => {
   return (
     <div
-      className="py-5 px-12 rounded-full bg-primary-blue cursor-pointer"
+      className="py-4 sm:py-5 px-12 rounded-full bg-primary-blue cursor-pointer"
       style={{
         width: fullWidth ? "100%" : "fit-content",
       }}

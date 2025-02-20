@@ -1,5 +1,6 @@
 "use client";
 
+import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -12,6 +13,7 @@ const menuItems = [
 ];
 
 const Header = () => {
+  const { setFooterShown } = useGlobalStore();
   const [headerShown, setHeaderShown] = useState<boolean>(true);
   const [lastScrollY, setLastScrollY] = useState<number>(0);
 
@@ -24,30 +26,32 @@ const Header = () => {
 
   const handleScroll = () => {
     const position = window.scrollY;
-    if (position < lastScrollY) {
-      setHeaderShown(true);
-    } else {
-      setHeaderShown(false);
-    }
+    // if (position < lastScrollY) {
+    //   setHeaderShown(true);
+    // } else {
+    //   setHeaderShown(false);
+    // }
+    setHeaderShown(!position);
     setLastScrollY(position);
   };
 
   return (
     <div
-      className="z-20 fixed top-0 left-0 w-full transition-transform duration-300"
+      className="z-10 fixed top-0 left-0 w-full transition-transform duration-200"
       style={{
         transform: headerShown ? "translateY(0)" : "translateY(-100%)",
       }}
     >
       <div className="mx-auto w-full max-w-[1440px]">
-        <div className="flex w-full py-4 px-15 items-center justify-between">
+        <div className="flex w-full py-4 px-6 sm:px-15 items-center justify-between">
           <Image
+            className="w-24 sm:w-auto"
             src="/images/header/logo.svg"
             width={153}
             height={85}
             alt="logo"
           />
-          <div className="flex gap-6">
+          <div className="hidden sm:flex gap-6">
             {menuItems.map((item) => (
               <Link
                 key={item.name}
@@ -58,6 +62,14 @@ const Header = () => {
               </Link>
             ))}
           </div>
+          <Image
+            className="w-8 sm:hidden cursor-pointer"
+            onClick={() => setFooterShown(true)}
+            src="/images/icons/hamburger.svg"
+            width={64}
+            height={64}
+            alt="hamburger"
+          />
         </div>
       </div>
     </div>

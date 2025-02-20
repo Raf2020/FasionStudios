@@ -26,12 +26,12 @@ const HomeTeachersSections = () => {
   ];
 
   return (
-    <div className="w-full pb-20 px-15">
-      <div className="mb-20 pb-4 border-b-[1px] border-b-black">
+    <div className="w-full pb-8 px-6 sm:pb-20 sm:px-15">
+      <div className="mb-8 sm:mb-20 pb-4 border-b-[1px] border-b-black">
         <p className="text-black text-base font-medium">OUR TEACHERS</p>
       </div>
-      <div className="flex pb-20 flex-col gap-2">
-        <p className="text-black text-[52px] leading-[72px]">
+      <div className="flex pb-8 sm:pb-20 flex-col gap-2">
+        <p className="text-black text-2xl sm:text-[52px] sm:leading-[72px]">
           Meet our world class teachers
         </p>
         <p className="max-w-xl text-black text-base leading-[30px]">
@@ -39,7 +39,7 @@ const HomeTeachersSections = () => {
           their expertise and love for movement to inspire our young dancers.
         </p>
       </div>
-      <div className="flex w-full gap-6">
+      <div className="flex w-full flex-col sm:flex-row gap-6">
         {teachers.map((teacher, index) => (
           <TeacherThumb
             key={index}

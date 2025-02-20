@@ -1,4 +1,8 @@
+"use client";
+
+import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const menuItems = [
   {
@@ -34,16 +38,38 @@ const socialMedias = [
 ];
 
 const Footer = () => {
+  const { footerShown, setFooterShown } = useGlobalStore();
+  const [isMobileView, setIsMobileView] = useState<boolean>(true);
+
+  useEffect(() => {
+    setIsMobileView(window.innerWidth < 640);
+  }, []);
+
   return (
-    <div className="w-full pt-20 px-15 bg-[#1E2662]">
-      <div className="flex w-full px-20 pb-20 justify-between">
+    <div
+      className="z-10 fixed top-0 w-full h-full pt-8 px-6 sm:static sm:h-fit sm:pt-20 sm:px-15 bg-[#1E2662] transition-transform duration-200"
+      style={{
+        transform:
+          !isMobileView || footerShown ? "translateX(0)" : "translateX(100%)",
+      }}
+    >
+      <Image
+        className="fixed top-7 right-6 w-8 sm:hidden cursor-pointer"
+        onClick={() => setFooterShown(false)}
+        src="/images/icons/hamburger.svg"
+        width={64}
+        height={64}
+        alt="hamburger"
+      />
+      <div className="flex w-full px-0 pb-6 flex-col gap-8 sm:px-20 sm:pb-20 sm:flex-row sm:gap-0 sm:justify-between">
         <Image
+          className="w-48 sm:w-auto"
           src="/images/footer/logo.svg"
           width={284}
           height={158}
           alt="logo"
         />
-        <div className="flex gap-28 text-[#9A9A9A]">
+        <div className="flex flex-col gap-8 sm:flex-row sm:gap-28 text-[#9A9A9A]">
           <div>
             <p className="pb-4 text-white text-sm font-medium">CONTACT</p>
             <p className="pb-2 text-base leading-[30px]">

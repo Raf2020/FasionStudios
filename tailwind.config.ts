@@ -20,6 +20,9 @@ export default {
       borderRadius: {
         "4xl": "2rem",
       },
+      fontFamily: {
+        "instrument-serif": "var(--font-instrument-serif)",
+      },
     },
   },
   plugins: [],

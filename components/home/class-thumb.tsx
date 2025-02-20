@@ -2,7 +2,7 @@ const ClassThumb = ({ name, image }: { name: string; image: string }) => {
   return (
     <div className="flex w-full flex-col gap-6">
       <div
-        className="w-full h-[500px] rounded-tl-2xl rounded-br-2xl"
+        className="w-full h-[360px] sm:h-[500px] rounded-tl-2xl rounded-br-2xl"
         style={{
           backgroundImage: `url("${image}")`,
         }}

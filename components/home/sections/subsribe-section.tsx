@@ -3,10 +3,10 @@ import Image from "next/image";
 
 const HomeSubscribeSection = () => {
   return (
-    <div className="flex w-full py-24 px-15 items-center">
+    <div className="flex w-full py-8 px-6 flex-col items-center gap-6 sm:py-24 sm:px-15 sm:flex-row sm:gap-0">
       <div className="w-full">
         <div className="flex w-full max-w-[540px] flex-col gap-4">
-          <p className="text-black text-[52px] leading-[64px]">
+          <p className="text-black text-2xl sm:text-[52px] sm:leading-[64px]">
             Get Ready, Coín! Fusion Studios is Almost Here!
           </p>
           <p className="text-black text-base leading-[30px]">

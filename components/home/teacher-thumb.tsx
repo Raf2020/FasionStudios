@@ -14,7 +14,7 @@ const TeacherThumb = ({
   return (
     <div className="flex w-full flex-col gap-6">
       <div
-        className="w-full h-[500px] rounded-tl-2xl rounded-br-2xl bg-cover bg-center"
+        className="w-full h-[360px] sm:h-[500px] rounded-tl-2xl rounded-br-2xl bg-cover bg-center"
         style={{
           backgroundImage: `url("${image}")`,
         }}

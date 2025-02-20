@@ -42,7 +42,7 @@ const BookingBox = () => {
   };
 
   return (
-    <div className="flex max-w-[450px] py-8 px-6 flex-col gap-6 rounded-4xl bg-[#F1F6FE]">
+    <div className="flex max-w-[450px] py-8 px-6 flex-col gap-6 rounded-none sm:rounded-4xl bg-[#F1F6FE]">
       <p className="text-black text-2xl font-medium leading-tight">
         Join us for free classes and updates on our opening in Coin!
       </p>
