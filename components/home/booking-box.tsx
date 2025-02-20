@@ -8,11 +8,17 @@ import { phoneInputStyle } from "@/shared/constants/app.const";
 import Select from "../global/elements/select";
 
 import "react-phone-input-2/lib/style.css";
+import { useAlertStore } from "@/zustand/alert-store";
+import { checkEmailFormat } from "@/shared/functions/global.functions";
+import { addBooking } from "@/actions/booking/booking.action";
 
 const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap"];
 const ageGroups = ["Child", "Teen", "Adult"];
 
 const BookingBox = () => {
+  const { showAlert } = useAlertStore();
+  const [pending, setPending] = useState<boolean>(false);
+
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phone, setPhone] = useState<string>("");
@@ -26,6 +32,42 @@ const BookingBox = () => {
         setPhone(res.country_calling_code ?? "");
       });
   }, []);
+
+  const handleBooking = () => {
+    if (!name || !checkEmailFormat(email) || !danceStyle || !ageGroup) {
+      showAlert("Error", "Please fill in all the required fields.");
+    } else {
+      const newBooking = {
+        id: "doc-id",
+        name,
+        email,
+        phone,
+        danceStyle,
+        ageGroup,
+        createdAt: Date.now(),
+      };
+      setPending(true);
+      addBooking(newBooking)
+        .then((res) => {
+          if (res.success) {
+            showAlert(
+              "Success",
+              "Your booking has been successfully submitted."
+            );
+            setName("");
+            setEmail("");
+            setPhone("");
+            setDanceStyle("");
+            setAgeGroup("");
+          } else {
+            showAlert("Error", "An error occurred. Please try again.");
+          }
+        })
+        .finally(() => {
+          setPending(false);
+        });
+    }
+  };
 
   const handlePhoneNumberChange = (
     value: string,
@@ -73,7 +115,12 @@ const BookingBox = () => {
           setValue={setAgeGroup}
         />
       </div>
-      <PrimaryButton name="BOOK MY FREE SPOT" fullWidth />
+      <PrimaryButton
+        name="BOOK MY FREE SPOT"
+        fullWidth
+        disabled={pending}
+        onClick={handleBooking}
+      />
     </div>
   );
 };

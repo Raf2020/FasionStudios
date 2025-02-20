@@ -2,7 +2,8 @@
 
 import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 const menuItems = [
   {
@@ -38,8 +39,11 @@ const socialMedias = [
 ];
 
 const Footer = () => {
+  const pathName = usePathname();
   const { footerShown, setFooterShown } = useGlobalStore();
   const [isMobileView, setIsMobileView] = useState<boolean>(true);
+
+  const footerHidden = useMemo(() => pathName.startsWith("/admin"), [pathName]);
 
   useEffect(() => {
     setIsMobileView(window.innerWidth < 640);
@@ -49,6 +53,7 @@ const Footer = () => {
     <div
       className="z-10 fixed top-0 w-full h-full pt-8 px-6 sm:static sm:h-fit sm:pt-20 sm:px-15 bg-[#1E2662] transition-transform duration-200"
       style={{
+        display: footerHidden ? "none" : "block",
         transform:
           !isMobileView || footerShown ? "translateX(0)" : "translateX(100%)",
       }}
