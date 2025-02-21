@@ -11,7 +11,7 @@ import PrimaryButton from "@/components/global/elements/primary-button";
 import { Subscriber } from "@/types/subscribe.type";
 import { useEffect, useMemo, useState } from "react";
 
-export default function SubscribersPage() {
+const SubscribersPage = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [emailDlgShown, setEmailDlgShown] = useState<boolean>(false);
 
@@ -76,4 +76,6 @@ export default function SubscribersPage() {
       ) : null}
     </div>
   );
-}
+};
+
+export default SubscribersPage;

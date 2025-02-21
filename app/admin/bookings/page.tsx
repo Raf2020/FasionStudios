@@ -9,27 +9,25 @@ import EmailSendDlg from "@/components/admin/global/email-send-dlg";
 import PageTitle from "@/components/admin/global/page-title";
 import PrimaryButton from "@/components/global/elements/primary-button";
 import { Booking } from "@/types/booking.types";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function BookingsPage() {
+const BookingsPage = () => {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [emailDlgShown, setEmailDlgShown] = useState<boolean>(false);
-
-  const selectedBookings = useMemo(
-    () => bookings.filter((booking) => booking.selected),
-    [bookings]
-  );
-
-  const selectedEmails = useMemo(
-    () => selectedBookings.map((booking) => booking.email),
-    [selectedBookings]
-  );
+  const [selectedBookings, setSelectedBookings] = useState<Booking[]>([]);
+  const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
 
   useEffect(() => {
     getAllBookings().then((_bookings) => {
       setBookings(_bookings);
     });
   }, []);
+
+  useEffect(() => {
+    const _selectedBookings = bookings.filter((booking) => booking.selected);
+    setSelectedBookings(_selectedBookings);
+    setSelectedEmails(_selectedBookings.map((booking) => booking.email));
+  }, [bookings]);
 
   const handleCheckClick = (bookingId: string) => {
     const _bookings = [...bookings];
@@ -71,4 +69,6 @@ export default function BookingsPage() {
       ) : null}
     </div>
   );
-}
+};
+
+export default BookingsPage;
