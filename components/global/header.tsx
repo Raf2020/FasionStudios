@@ -1,5 +1,6 @@
 "use client";
 
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,6 +15,7 @@ const menuItems = [
 ];
 
 const Header = () => {
+  const currentUser = useCurrentUser();
   const { setFooterShown } = useGlobalStore();
   const [headerShown, setHeaderShown] = useState<boolean>(true);
   const [lastScrollY, setLastScrollY] = useState<number>(0);
@@ -49,13 +51,15 @@ const Header = () => {
     >
       <div className="mx-auto w-full max-w-[1440px]">
         <div className="flex w-full py-4 px-6 sm:px-15 items-center justify-between">
-          <Image
-            className="w-24 sm:w-auto"
-            src="/images/header/logo.svg"
-            width={153}
-            height={85}
-            alt="logo"
-          />
+          <Link href="/">
+            <Image
+              className="w-24 sm:w-auto"
+              src="/images/header/logo.svg"
+              width={153}
+              height={85}
+              alt="logo"
+            />
+          </Link>
           <div className="hidden sm:flex gap-6">
             {menuItems.map((item) => (
               <Link
@@ -66,6 +70,12 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
+            <Link
+              href={currentUser ? "/admin" : "/auth/login"}
+              className="text-white text-base font-semibold hover:text-gray-200"
+            >
+              {currentUser ? "Admin" : "Login"}
+            </Link>
           </div>
           <Image
             className="w-8 sm:hidden cursor-pointer"

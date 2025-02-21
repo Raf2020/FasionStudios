@@ -3,12 +3,14 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-export default function AdminPage() {
+const AuthPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/admin/bookings");
+    router.push("/auth/login");
   }, []);
 
   return <div></div>;
-}
+};
+
+export default AuthPage;

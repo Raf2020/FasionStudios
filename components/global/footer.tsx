@@ -43,7 +43,10 @@ const Footer = () => {
   const { footerShown, setFooterShown } = useGlobalStore();
   const [isMobileView, setIsMobileView] = useState<boolean>(true);
 
-  const footerHidden = useMemo(() => pathName.startsWith("/admin"), [pathName]);
+  const footerHidden = useMemo(
+    () => pathName.startsWith("/admin") || pathName.startsWith("/auth"),
+    [pathName]
+  );
 
   useEffect(() => {
     setIsMobileView(window.innerWidth < 640);

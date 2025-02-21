@@ -9,9 +9,7 @@ import Select from "../global/elements/select";
 
 import "react-phone-input-2/lib/style.css";
 import { useAlertStore } from "@/zustand/alert-store";
-import { checkEmailFormat } from "@/shared/functions/global.functions";
-import { addBooking } from "@/actions/booking/booking.action";
-import { Booking } from "@/types/booking.types";
+import { processBooking } from "@/actions/booking/booking.action";
 
 const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap"];
 const ageGroups = ["Child", "Teen", "Adult"];
@@ -35,39 +33,23 @@ const BookingBox = () => {
   }, []);
 
   const handleBooking = () => {
-    if (!name || !checkEmailFormat(email) || !danceStyle || !ageGroup) {
-      showAlert("Error", "Please fill in all the required fields.");
-    } else {
-      const newBooking: Booking = {
-        id: "doc-id",
-        name,
-        email,
-        phone,
-        danceStyle,
-        ageGroup,
-        createdAt: Date.now(),
-      };
-      setPending(true);
-      addBooking(newBooking)
-        .then((res) => {
-          if (res.success) {
-            showAlert(
-              "Success",
-              "Your booking has been successfully submitted."
-            );
-            setName("");
-            setEmail("");
-            setPhone("");
-            setDanceStyle("");
-            setAgeGroup("");
-          } else {
-            showAlert("Error", "An error occurred. Please try again.");
-          }
-        })
-        .finally(() => {
-          setPending(false);
-        });
-    }
+    setPending(true);
+    processBooking(name, email, phone, danceStyle, ageGroup)
+      .then((res) => {
+        if (res.success) {
+          showAlert("Success", "Your booking has been successfully submitted.");
+          setName("");
+          setEmail("");
+          setPhone("");
+          setDanceStyle("");
+          setAgeGroup("");
+        } else {
+          showAlert("Error", res.error);
+        }
+      })
+      .finally(() => {
+        setPending(false);
+      });
   };
 
   const handlePhoneNumberChange = (

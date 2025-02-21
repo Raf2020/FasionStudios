@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  downloadBookingList,
-  getAllBookings,
-} from "@/actions/booking/booking.action";
+import { downloadBookingList } from "@/actions/booking/booking.action";
+import { getAllBookings } from "@/actions/booking/booking.db";
 import BookingsTable from "@/components/admin/bookings/bookings-table";
 import EmailSendDlg from "@/components/admin/global/email-send-dlg";
 import PageTitle from "@/components/admin/global/page-title";

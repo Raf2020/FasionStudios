@@ -3,16 +3,23 @@ type InputProps = {
   placeholder?: string;
   value: string;
   setValue: (value: string) => void;
+  password?: boolean;
 };
 
-const Input = ({ label, placeholder, value, setValue }: InputProps) => {
+const Input = ({
+  label,
+  placeholder,
+  value,
+  setValue,
+  password,
+}: InputProps) => {
   return (
     <div className="w-full">
       {label && (
         <p className="pb-2 text-black text-base font-semibold">{label}</p>
       )}
       <input
-        type="text"
+        type={password ? "password" : "text"}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={label ?? placeholder}

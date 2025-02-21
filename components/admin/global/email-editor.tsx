@@ -3,14 +3,14 @@
 import dynamic from "next/dynamic";
 import { useRef } from "react";
 
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+});
+
 type EmailEditorProps = {
   content: string;
   setContent: (content: string) => void;
 };
-
-const JoditEditor = dynamic(() => import("jodit-react"), {
-  ssr: false,
-});
 
 const EmailEditor = ({ content, setContent }: EmailEditorProps) => {
   const editorRef = useRef(null);

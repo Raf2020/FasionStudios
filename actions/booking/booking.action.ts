@@ -1,32 +1,6 @@
-import db from "@/lib/firestore";
+import { checkEmailFormat } from "@/shared/functions/global.functions";
 import { Booking } from "@/types/booking.types";
-import { addDoc, collection, getDocs } from "firebase/firestore";
-
-export const addBooking = async (booking: Booking) => {
-  try {
-    const collectionRef = collection(db, "bookings");
-    await addDoc(collectionRef, booking);
-    return {
-      success: true,
-    };
-  } catch (error) {
-    return {
-      success: false,
-    };
-  }
-};
-
-export const getAllBookings = async () => {
-  try {
-    const collectionRef = collection(db, "bookings");
-    const snapshot = await getDocs(collectionRef);
-    return snapshot.docs.map(
-      (doc) => ({ ...doc.data(), id: doc.id } as Booking)
-    );
-  } catch (error) {
-    return [];
-  }
-};
+import { addBooking } from "./booking.db";
 
 export const downloadBookingList = (bookings: Booking[]) => {
   const csvHeader = "Name,Email,Phone,Dance Style,Age Group,Booked\n";
@@ -56,4 +30,48 @@ export const downloadBookingList = (bookings: Booking[]) => {
 
   document.body.removeChild(aTag);
   URL.revokeObjectURL(url);
+};
+
+export const processBooking = async (
+  name: string,
+  email: string,
+  phone: string,
+  danceStyle: string,
+  ageGroup: string
+) => {
+  if (name === "") {
+    return {
+      success: false,
+      error: "Please input the name correctly",
+    };
+  } else if (!checkEmailFormat(email)) {
+    return {
+      success: false,
+      error: "Please input the email correctly",
+    };
+  } else if (danceStyle === "") {
+    return {
+      success: false,
+      error: "Please select Dance style",
+    };
+  } else if (ageGroup === "") {
+    return {
+      success: false,
+      error: "Please select Age group",
+    };
+  }
+  const newBooking: Booking = {
+    id: "doc-id",
+    name,
+    email,
+    phone,
+    danceStyle,
+    ageGroup,
+    createdAt: Date.now(),
+  };
+  const res = await addBooking(newBooking);
+  return {
+    success: res.success,
+    error: "An error occurred. Please try again",
+  };
 };
