@@ -2,11 +2,11 @@
 
 import PrimaryButton from "@/components/global/elements/primary-button";
 import { useState } from "react";
-import JoditEditor from "jodit-react";
 import { sendEmail } from "@/actions/email/email.action";
 import { useAlertStore } from "@/zustand/alert-store";
 import Image from "next/image";
 import Loading from "@/components/global/loading";
+import EmailEditor from "./email-editor";
 
 type EmailSendDlgProps = {
   emails: string[];
@@ -51,14 +51,7 @@ const EmailSendDlg = ({ emails, onComplete }: EmailSendDlgProps) => {
             </div>
           ))}
         </div>
-        <JoditEditor
-          // ref={editorRef}
-          value={content}
-          config={{ readonly: false, height: "480" }}
-          tabIndex={1} // tabIndex of textarea
-          onBlur={(newContent) => setContent(newContent)} // preferred to use only this option to update the content for performance reasons
-          // onChange={(newContent) => {}}
-        />
+        <EmailEditor content={content} setContent={setContent} />
         <div className="flex w-full justify-end">
           <PrimaryButton name="Send" lowHeight onClick={handleSendEmail} />
         </div>
