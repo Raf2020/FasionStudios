@@ -1,12 +1,16 @@
 "use client";
 
-import JoditEditor from "jodit-react";
+import dynamic from "next/dynamic";
 import { useRef } from "react";
 
 type EmailEditorProps = {
   content: string;
   setContent: (content: string) => void;
 };
+
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+});
 
 const EmailEditor = ({ content, setContent }: EmailEditorProps) => {
   const editorRef = useRef(null);
