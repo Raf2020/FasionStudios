@@ -11,6 +11,7 @@ import "react-phone-input-2/lib/style.css";
 import { useAlertStore } from "@/zustand/alert-store";
 import { checkEmailFormat } from "@/shared/functions/global.functions";
 import { addBooking } from "@/actions/booking/booking.action";
+import { Booking } from "@/types/booking.types";
 
 const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap"];
 const ageGroups = ["Child", "Teen", "Adult"];
@@ -37,7 +38,7 @@ const BookingBox = () => {
     if (!name || !checkEmailFormat(email) || !danceStyle || !ageGroup) {
       showAlert("Error", "Please fill in all the required fields.");
     } else {
-      const newBooking = {
+      const newBooking: Booking = {
         id: "doc-id",
         name,
         email,

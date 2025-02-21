@@ -27,3 +27,33 @@ export const getAllBookings = async () => {
     return [];
   }
 };
+
+export const downloadBookingList = (bookings: Booking[]) => {
+  const csvHeader = "Name,Email,Phone,Dance Style,Age Group,Booked\n";
+  const csvRows = bookings
+    .map(
+      (booking) =>
+        `${booking.name},${booking.email},"${booking.phone}",${
+          booking.danceStyle
+        },${booking.ageGroup},${new Date(
+          booking.createdAt
+        ).toLocaleDateString()}`
+    )
+    .join("\n");
+  const csvData = csvHeader + csvRows;
+
+  const blob = new Blob([`\ufeff${csvData}`], {
+    type: "text/csv;charset=utf-8;",
+  });
+  const url = URL.createObjectURL(blob);
+
+  const aTag = document.createElement("a");
+  aTag.href = url;
+  aTag.download = "booking-list.csv";
+
+  document.body.appendChild(aTag);
+  aTag.click();
+
+  document.body.removeChild(aTag);
+  URL.revokeObjectURL(url);
+};

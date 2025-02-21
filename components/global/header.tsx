@@ -3,7 +3,8 @@
 import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
 const menuItems = [
   { name: "Home", href: "/" },
@@ -16,6 +17,9 @@ const Header = () => {
   const { setFooterShown } = useGlobalStore();
   const [headerShown, setHeaderShown] = useState<boolean>(true);
   const [lastScrollY, setLastScrollY] = useState<number>(0);
+
+  const pathName = usePathname();
+  const headerHidden = useMemo(() => pathName.startsWith("/admin"), [pathName]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -39,6 +43,7 @@ const Header = () => {
     <div
       className="z-10 fixed top-0 left-0 w-full transition-transform duration-200"
       style={{
+        display: headerHidden ? "none" : "block",
         transform: headerShown ? "translateY(0)" : "translateY(-100%)",
       }}
     >

@@ -6,4 +6,6 @@ export type Booking = {
   danceStyle: string;
   ageGroup: string;
   createdAt: number;
+
+  selected?: boolean;
 };

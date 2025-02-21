@@ -1,11 +1,17 @@
 import { Fragment } from "react";
-import { BodyCell, HeaderCell } from "../table-cells";
+import { BodyCell, HeaderCell, TableCell } from "../table-cells";
 import { Booking } from "@/types/booking.types";
 
-const BookingsTable = ({ bookings }: { bookings: Booking[] }) => {
+type BookingsTableProps = {
+  bookings: Booking[];
+  onCheckClick: (bookingId: string) => void;
+};
+
+const BookingsTable = ({ bookings, onCheckClick }: BookingsTableProps) => {
   return (
-    <div className="grid w-full pt-2 px-2 grid-cols-6 shadow-md">
+    <div className="grid w-full pt-2 px-2 grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr_1fr] shadow-md">
       <Fragment>
+        <HeaderCell label="Select" />
         <HeaderCell left label="Name" />
         <HeaderCell label="Email" />
         <HeaderCell label="phone" />
@@ -13,8 +19,16 @@ const BookingsTable = ({ bookings }: { bookings: Booking[] }) => {
         <HeaderCell label="Age Group" />
         <HeaderCell label="Booked" />
       </Fragment>
-      {bookings.map((booking, index) => (
-        <Fragment key={index}>
+      {bookings.map((booking) => (
+        <Fragment key={booking.id}>
+          <TableCell>
+            <input
+              type="checkbox"
+              className="cursor-pointer"
+              checked={booking.selected}
+              onClick={() => onCheckClick(booking.id)}
+            />
+          </TableCell>
           <BodyCell left label={booking.name} />
           <BodyCell label={booking.email} />
           <BodyCell label={booking.phone} />

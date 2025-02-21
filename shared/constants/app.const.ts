@@ -1,3 +1,9 @@
+export const AppConfig = {
+  // NODE MAILER
+  SenderGmail: process.env.SENDER_GMAIL,
+  SenderGmailPass: process.env.SENDER_GMAIL_PASS,
+};
+
 export const phoneInputStyle = {
   width: "100%",
   height: "48px",
