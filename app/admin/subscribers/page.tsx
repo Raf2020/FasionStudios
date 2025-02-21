@@ -9,27 +9,31 @@ import PageTitle from "@/components/admin/global/page-title";
 import SubscribersTable from "@/components/admin/subscribers/subscribers-table";
 import PrimaryButton from "@/components/global/elements/primary-button";
 import { Subscriber } from "@/types/subscribe.type";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 const SubscribersPage = () => {
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
   const [emailDlgShown, setEmailDlgShown] = useState<boolean>(false);
-
-  const selectedSubscribers = useMemo(
-    () => subscribers.filter((subscriber) => subscriber.selected),
-    [subscribers]
+  const [selectedSubscribers, setSelectedSubscribers] = useState<Subscriber[]>(
+    []
   );
-
-  const selectedEmails = useMemo(
-    () => selectedSubscribers.map((subscriber) => subscriber.email),
-    [selectedSubscribers]
-  );
+  const [selectedEmails, setSelectedEmails] = useState<string[]>([]);
 
   useEffect(() => {
     getAllSubscribers().then((_subscribers) => {
       setSubscribers(_subscribers);
     });
   }, []);
+
+  useEffect(() => {
+    const _selectedSubscribers = subscribers.filter(
+      (subscriber) => subscriber.selected
+    );
+    setSelectedSubscribers(_selectedSubscribers);
+    setSelectedEmails(
+      _selectedSubscribers.map((subscriber) => subscriber.email)
+    );
+  }, [subscribers]);
 
   const handleCheckClick = (email: string) => {
     const _subscribers = [...subscribers];
