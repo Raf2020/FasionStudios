@@ -52,7 +52,7 @@ const Header = () => {
     >
       <div className="mx-auto w-full max-w-[1440px] bg-black bg-opacity-20">
         <div className="flex w-full py-4 px-6 sm:px-15 items-center justify-between">
-          <Link href="/">
+          <Link href="#home">
             <Image
               className="w-24 sm:w-auto"
               src="/images/header/logo.svg"

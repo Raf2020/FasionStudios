@@ -2,33 +2,34 @@
 
 import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const menuItems = [
   {
     name: "Home",
-    href: "/",
+    href: "#home",
   },
   {
     name: "About Us",
-    href: "/about",
+    href: "#about",
   },
   {
     name: "Class",
-    href: "/class",
+    href: "#classes",
   },
   {
     name: "Contact",
-    href: "/contact",
+    href: "#contact",
   },
   {
     name: "Terms",
-    href: "/terms",
+    href: "#terms",
   },
   {
     name: "Policy",
-    href: "/policy",
+    href: "#policy",
   },
 ];
 
@@ -71,13 +72,15 @@ const Footer = () => {
         alt="hamburger"
       />
       <div className="flex w-full px-0 pb-6 flex-col gap-8 sm:px-20 sm:pb-20 sm:flex-row sm:gap-0 sm:justify-between">
-        <Image
-          className="w-48 sm:w-auto"
-          src="/images/footer/logo.svg"
-          width={284}
-          height={158}
-          alt="logo"
-        />
+        <Link href="#home" onClick={() => setFooterShown(false)}>
+          <Image
+            className="w-48 sm:w-auto"
+            src="/images/footer/logo.svg"
+            width={284}
+            height={158}
+            alt="logo"
+          />
+        </Link>
         <div className="flex flex-col gap-8 sm:flex-row sm:gap-28 text-[#9A9A9A]">
           <div>
             <p className="pb-4 text-white text-sm font-medium">CONTACT</p>
@@ -92,9 +95,13 @@ const Footer = () => {
             <p className="pb-4 text-white text-sm font-medium">MENU</p>
             <div className="flex flex-col gap-2">
               {menuItems.map((item) => (
-                <p key={item.name} className="text-sm leading-[30px]">
-                  {item.name}
-                </p>
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setFooterShown(false)}
+                >
+                  <p className="text-sm leading-[30px]">{item.name}</p>
+                </Link>
               ))}
             </div>
           </div>
