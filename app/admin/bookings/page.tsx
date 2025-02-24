@@ -27,6 +27,11 @@ const BookingsPage = () => {
     setSelectedEmails(_selectedBookings.map((booking) => booking.email));
   }, [bookings]);
 
+  const handleSelectClick = () => {
+    const selected = selectedBookings.length !== bookings.length;
+    setBookings(bookings.map((booking) => ({ ...booking, selected })));
+  };
+
   const handleCheckClick = (bookingId: string) => {
     const _bookings = [...bookings];
     const _booking = _bookings.find(
@@ -43,7 +48,11 @@ const BookingsPage = () => {
   return (
     <div className="flex w-full flex-col gap-6 bg-white">
       <PageTitle>Bookings</PageTitle>
-      <BookingsTable bookings={bookings} onCheckClick={handleCheckClick} />
+      <BookingsTable
+        bookings={bookings}
+        onCheckClick={handleCheckClick}
+        onSelectClick={handleSelectClick}
+      />
       <div className="flex gap-6">
         <PrimaryButton
           name="Download List as a sheet"

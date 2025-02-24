@@ -5,13 +5,18 @@ import { Booking } from "@/types/booking.types";
 type BookingsTableProps = {
   bookings: Booking[];
   onCheckClick: (bookingId: string) => void;
+  onSelectClick: () => void;
 };
 
-const BookingsTable = ({ bookings, onCheckClick }: BookingsTableProps) => {
+const BookingsTable = ({
+  bookings,
+  onCheckClick,
+  onSelectClick,
+}: BookingsTableProps) => {
   return (
     <div className="grid w-full pt-2 px-2 grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr_1fr] shadow-md">
       <Fragment>
-        <HeaderCell label="Select" />
+        <HeaderCell label="Select" onClick={onSelectClick} />
         <HeaderCell left label="Name" />
         <HeaderCell label="Email" />
         <HeaderCell label="phone" />

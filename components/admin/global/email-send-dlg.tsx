@@ -44,7 +44,7 @@ const EmailSendDlg = ({ emails, onComplete }: EmailSendDlgProps) => {
           onClick={onComplete}
         />
         <div className="flex w-full flex-wrap items-center gap-2">
-          <p className="text-primary-blue text-lg font-semibold">To: </p>
+          <p className="text-lg font-semibold">To: </p>
           {emails.map((email) => (
             <div key={email} className="py-1 px-4 bg-primary-blue rounded-full">
               <p className="text-primary-purple text-base">{email}</p>
