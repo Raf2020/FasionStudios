@@ -56,9 +56,7 @@ export const HeaderCell = ({
         }}
         onClick={handleClick}
       >
-        <p className="text-center text-primary-blue text-lg font-bold">
-          {label}
-        </p>
+        <p className="text-center text-lg font-bold">{label}</p>
         {sortable && (
           <Image
             className="absolute right-2 transition-transform duration-100"

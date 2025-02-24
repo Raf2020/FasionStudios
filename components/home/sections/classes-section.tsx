@@ -22,7 +22,7 @@ const HomeClassesSection = () => {
   ];
 
   return (
-    <div className="w-full pb-8 sm:pb-20">
+    <div id="classes" className="w-full pb-8 sm:pb-20">
       <div className="w-full pt-8 px-6 sm:pt-20 sm:pb-[350px] sm:px-15 bg-primary-purple">
         <div className="mb-8 sm:mb-20 pb-4 border-b-[1px] border-b-white">
           <p className="text-white text-base font-medium">OUR CLASSES</p>

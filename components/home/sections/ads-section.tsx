@@ -1,6 +1,6 @@
 const HomeAdsSection = () => {
   return (
-    <div className="flex w-full flex-col gap-4 bg-primary-blue">
+    <div id="about" className="flex w-full flex-col gap-4 bg-primary-blue">
       <div className="flex w-full flex-col sm:pl-15 sm:flex-row sm:items-center">
         <div className="w-full p-6 sm:p-0">
           <AdDescription

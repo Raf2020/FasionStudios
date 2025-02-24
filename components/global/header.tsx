@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
+// import { useCurrentUser } from "@/hooks/use-current-user";
 import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,14 +8,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const menuItems = [
-  { name: "Home", href: "/" },
-  { name: "About us", href: "/about" },
-  { name: "Classes", href: "/classes" },
-  { name: "Contact", href: "/contact" },
+  { name: "Home", href: "#home" },
+  { name: "About us", href: "#about" },
+  { name: "Classes", href: "#classes" },
+  { name: "Contact", href: "#contact" },
 ];
 
 const Header = () => {
-  const currentUser = useCurrentUser();
+  // const currentUser = useCurrentUser();
   const { setFooterShown } = useGlobalStore();
   const [headerShown, setHeaderShown] = useState<boolean>(true);
   const [lastScrollY, setLastScrollY] = useState<number>(0);
@@ -31,6 +31,7 @@ const Header = () => {
   }, [lastScrollY]);
 
   const handleScroll = () => {
+    console.log(headerShown);
     const position = window.scrollY;
     // if (position < lastScrollY) {
     //   setHeaderShown(true);
@@ -46,10 +47,10 @@ const Header = () => {
       className="z-10 fixed top-0 left-0 w-full transition-transform duration-200"
       style={{
         display: headerHidden ? "none" : "block",
-        transform: headerShown ? "translateY(0)" : "translateY(-100%)",
+        // transform: headerShown ? "translateY(0)" : "translateY(-100%)",
       }}
     >
-      <div className="mx-auto w-full max-w-[1440px]">
+      <div className="mx-auto w-full max-w-[1440px] bg-black bg-opacity-20">
         <div className="flex w-full py-4 px-6 sm:px-15 items-center justify-between">
           <Link href="/">
             <Image
@@ -70,12 +71,12 @@ const Header = () => {
                 {item.name}
               </Link>
             ))}
-            <Link
+            {/* <Link
               href={currentUser ? "/admin" : "/auth/login"}
               className="text-white text-base font-semibold hover:text-gray-200"
             >
               {currentUser ? "Admin" : "Login"}
-            </Link>
+            </Link> */}
           </div>
           <Image
             className="w-8 sm:hidden cursor-pointer"

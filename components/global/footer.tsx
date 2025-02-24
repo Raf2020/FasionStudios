@@ -54,6 +54,7 @@ const Footer = () => {
 
   return (
     <div
+      id="contact"
       className="z-10 fixed top-0 w-full h-full pt-8 px-6 sm:static sm:h-fit sm:pt-20 sm:px-15 bg-[#1E2662] transition-transform duration-200"
       style={{
         display: footerHidden ? "none" : "block",

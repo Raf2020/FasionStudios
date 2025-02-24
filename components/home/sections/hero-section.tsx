@@ -3,7 +3,7 @@ import BookingBox from "../booking-box";
 
 const HomeHeroSection = () => {
   return (
-    <div className="relative w-full">
+    <div id="home" className="relative w-full">
       <div className="relative flex items-center">
         {/* <Image
           src="/images/home/hero.svg"
