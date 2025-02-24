@@ -1,7 +1,14 @@
 "use server";
 
 import { AppConfig } from "@/shared/constants/app.const";
+import { bookingEmailTemplate } from "@/shared/email-templates/booking.email";
 import nodemailer from "nodemailer";
+
+export const sendEmailForBooking = async (email: string, userName: string) => {
+  let template = bookingEmailTemplate;
+  template = template.replace("{{USER_NAME}}", userName);
+  return await sendEmail(email, undefined, template);
+};
 
 export const sendEmail = async (
   email: string,

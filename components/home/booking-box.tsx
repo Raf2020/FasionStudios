@@ -11,6 +11,7 @@ import "react-phone-input-2/lib/style.css";
 import { useAlertStore } from "@/zustand/alert-store";
 import { processBooking } from "@/actions/booking/booking.action";
 import Image from "next/image";
+import { sendEmailForBooking } from "@/actions/email/email.action";
 
 const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap"];
 const ageGroups = ["Child", "Teen", "Adult"];
@@ -42,6 +43,7 @@ const BookingBox = () => {
       .then((res) => {
         if (res.success) {
           showAlert("Success", "Your booking has been successfully submitted.");
+          sendEmailForBooking(email, name);
           setName("");
           setEmail("");
           setPhone("");
@@ -77,7 +79,7 @@ const BookingBox = () => {
           <div className="flex w-full max-w-[450px] py-6 px-4 sm:py-8 sm:px-6 flex-col gap-6 rounded-4xl bg-[#F1F6FE]">
             <div className="flex w-full flex-col gap-2">
               <Image
-                className="self-end"
+                className="sm:hidden self-end"
                 src="/images/icons/cancel.svg"
                 width={21}
                 height={20}
