@@ -62,7 +62,7 @@ export const bookingEmailTemplate: string = `
             <h2>Your Spot Has Been Confirmed</h2>
             <p>Dear {{USER_NAME}},</p>
             <p>Thank you for booking a free class with Fusion Studios! Your spot has been confirmed, and we are thrilled to have you join us.</p>
-            <p>We will get back to you as soon as possible with more details about your class. In the meantime, feel free to explore more about our classes and instructors on our <a href="https://yourwebsite.com">website</a>.</p>
+            <p>We will get back to you as soon as possible with more details about your class. In the meantime, feel free to explore more about our classes and instructors on our <a href="https://www.fusionstudios.es">website</a>.</p>
             <p>Looking forward to dancing with you soon!</p>
             <p>Best regards,</p>
             <p>The Fusion Studios Team</p>
