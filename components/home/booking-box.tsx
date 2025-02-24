@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import PrimaryButton from "../global/elements/primary-button";
 import Input from "../global/elements/input";
 import PhoneInput, { CountryData } from "react-phone-input-2";
@@ -10,6 +10,7 @@ import Select from "../global/elements/select";
 import "react-phone-input-2/lib/style.css";
 import { useAlertStore } from "@/zustand/alert-store";
 import { processBooking } from "@/actions/booking/booking.action";
+import Image from "next/image";
 
 const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap"];
 const ageGroups = ["Child", "Teen", "Adult"];
@@ -17,6 +18,7 @@ const ageGroups = ["Child", "Teen", "Adult"];
 const BookingBox = () => {
   const { showAlert } = useAlertStore();
   const [pending, setPending] = useState<boolean>(false);
+  const [boxShown, setBoxShown] = useState<boolean>(false);
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -30,6 +32,8 @@ const BookingBox = () => {
       .then((res) => {
         setPhone(res.country_calling_code ?? "");
       });
+    // BOX SHOWN
+    setBoxShown(window.innerWidth >= 640);
   }, []);
 
   const handleBooking = () => {
@@ -67,44 +71,68 @@ const BookingBox = () => {
   };
 
   return (
-    <div className="flex max-w-[450px] py-8 px-6 flex-col gap-6 rounded-none sm:rounded-4xl bg-[#F1F6FE]">
-      <p className="text-black text-2xl font-medium leading-tight">
-        Join us for free classes and updates on our opening in Coin!
-      </p>
-      <div className="flex w-full flex-col gap-5">
-        <Input label="Full Name" value={name} setValue={setName} />
-        <Input label="Email Address" value={email} setValue={setEmail} />
-        <div className="w-full">
-          <p className="pb-2 text-black text-base font-semibold">
-            Phone Number (optional)
-          </p>
-          <PhoneInput
-            inputStyle={phoneInputStyle}
-            country="us"
-            value={phone}
-            onChange={handlePhoneNumberChange}
+    <Fragment>
+      {boxShown ? (
+        <div className="fixed left-0 top-0 sm:static flex w-full h-full px-4 sm:px-0 items-center bg-black bg-opacity-50 sm:bg-transparent">
+          <div className="flex w-full max-w-[450px] py-6 px-4 sm:py-8 sm:px-6 flex-col gap-6 rounded-4xl bg-[#F1F6FE]">
+            <div className="flex w-full flex-col gap-2">
+              <Image
+                className="self-end"
+                src="/images/icons/cancel.svg"
+                width={21}
+                height={20}
+                alt="cancel"
+                onClick={() => setBoxShown(false)}
+              />
+              <p className="text-black text-2xl font-medium leading-tight">
+                Join us for free classes and updates on our opening in Coin!
+              </p>
+            </div>
+            <div className="flex w-full flex-col gap-5">
+              <Input label="Full Name" value={name} setValue={setName} />
+              <Input label="Email Address" value={email} setValue={setEmail} />
+              <div className="w-full">
+                <p className="pb-2 text-black text-base font-semibold">
+                  Phone Number (optional)
+                </p>
+                <PhoneInput
+                  inputStyle={phoneInputStyle}
+                  country="us"
+                  value={phone}
+                  onChange={handlePhoneNumberChange}
+                />
+              </div>
+              <Select
+                label="Preferred Dance Styles"
+                options={danceStyles}
+                value={danceStyle}
+                setValue={setDanceStyle}
+              />
+              <Select
+                label="Interested Age Group"
+                options={ageGroups}
+                value={ageGroup}
+                setValue={setAgeGroup}
+              />
+            </div>
+            <PrimaryButton
+              name="BOOK MY FREE SPOT"
+              fullWidth
+              disabled={pending}
+              onClick={handleBooking}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="sm:hidden fixed left-0 bottom-0 w-full py-2 px-2">
+          <PrimaryButton
+            name="BOOK MY FREE SPOT"
+            fullWidth
+            onClick={() => setBoxShown(true)}
           />
         </div>
-        <Select
-          label="Preferred Dance Styles"
-          options={danceStyles}
-          value={danceStyle}
-          setValue={setDanceStyle}
-        />
-        <Select
-          label="Interested Age Group"
-          options={ageGroups}
-          value={ageGroup}
-          setValue={setAgeGroup}
-        />
-      </div>
-      <PrimaryButton
-        name="BOOK MY FREE SPOT"
-        fullWidth
-        disabled={pending}
-        onClick={handleBooking}
-      />
-    </div>
+      )}
+    </Fragment>
   );
 };
 

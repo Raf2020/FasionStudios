@@ -6,7 +6,7 @@ import HomeTeachersSections from "@/components/home/sections/teachers-section";
 
 export default function Home() {
   return (
-    <div className="w-full">
+    <div className="w-full pb-12 sm:pb-0">
       <HomeHeroSection />
       <HomeClassesSection />
       <HomeTeachersSections />
