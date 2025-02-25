@@ -13,7 +13,7 @@ import { processBooking } from "@/actions/booking/booking.action";
 import Image from "next/image";
 import { sendEmailForBooking } from "@/actions/email/email.action";
 
-const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap"];
+const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap", "Yoga"];
 const ageGroups = ["Child", "Teen", "Adult"];
 
 const BookingBox = () => {
