@@ -21,7 +21,7 @@ export default function RootLayout({
       >
         <SessionProvider>
           <GlobalLayout />
-          <div className="mx-auto w-full max-w-[1440px]">
+          <div className="w-full">
             <Header />
             {children}
             <Footer />

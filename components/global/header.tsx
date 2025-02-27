@@ -50,7 +50,7 @@ const Header = () => {
         // transform: headerShown ? "translateY(0)" : "translateY(-100%)",
       }}
     >
-      <div className="mx-auto w-full max-w-[1440px] bg-black bg-opacity-20">
+      <div className="w-full bg-black bg-opacity-20">
         <div className="flex w-full py-4 px-6 sm:px-15 items-center justify-between">
           <Link href="#home">
             <Image

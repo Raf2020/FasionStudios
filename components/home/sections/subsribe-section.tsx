@@ -59,7 +59,7 @@ const HomeSubscribeSection = () => {
           />
         </div>
       </div>
-      <div className="w-full">
+      <div className="flex w-full justify-center">
         <Image
           className="rounded-tl-4xl rounded-br-4xl"
           src="/images/home/building.svg"
