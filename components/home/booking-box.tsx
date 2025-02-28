@@ -15,18 +15,13 @@ import { useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { AppConfig } from "@/shared/constants/app.const";
 import { phoneInputStyle } from "@/shared/constants/style.const";
+import { classes } from "@/shared/constants/data.const";
 
-const danceStyles = [
-  "Ballet",
-  "Hip Hop",
-  "Jazz",
-  "Contemporary",
-  "Tap",
-  "Yoga",
-];
 const ageGroups = ["Child", "Teen", "Adult"];
 
 const BookingBox = () => {
+  const danceStyles = classes.map((cls) => cls.name);
+
   const { showAlert } = useAlertStore();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [pending, setPending] = useState<boolean>(false);

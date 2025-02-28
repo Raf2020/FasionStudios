@@ -60,15 +60,17 @@ const Select = ({ label, options, value, setValue }: SelectProps) => {
         </div>
         {isOpen && (
           <div className="z-20 absolute top-full left-0 w-full border-[1px] border-neutral-200 rounded-lg overflow-hidden bg-white">
-            {options.map((option) => (
-              <div
-                key={option}
-                className="py-3 px-5 hover:bg-gray-100"
-                onClick={() => handleOptionClick(option)}
-              >
-                {option}
-              </div>
-            ))}
+            <div className="w-full max-h-[336px] overflow-y-auto">
+              {options.map((option) => (
+                <div
+                  key={option}
+                  className="py-3 px-5 hover:bg-gray-100"
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
