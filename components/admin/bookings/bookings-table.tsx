@@ -4,19 +4,34 @@ import { Booking } from "@/types/booking.types";
 
 type BookingsTableProps = {
   bookings: Booking[];
+  allSelected: boolean;
   onCheckClick: (bookingId: string) => void;
   onSelectClick: () => void;
 };
 
 const BookingsTable = ({
   bookings,
+  allSelected,
   onCheckClick,
   onSelectClick,
 }: BookingsTableProps) => {
   return (
     <div className="grid w-full pt-2 px-2 grid-cols-[0.5fr_1fr_1fr_1fr_1fr_1fr_1fr] shadow-md">
       <Fragment>
-        <HeaderCell label="Select" onClick={onSelectClick} />
+        {/* <HeaderCell label="Select" onClick={onSelectClick} /> */}
+        <TableCell>
+          <div
+            className="flex items-center gap-2 select-none cursor-pointer"
+            onClick={onSelectClick}
+          >
+            <input
+              type="checkbox"
+              className="cursor-pointer"
+              checked={allSelected}
+            />
+            <p className="text-center text-lg font-bold">Select</p>
+          </div>
+        </TableCell>
         <HeaderCell left label="Name" />
         <HeaderCell label="Email" />
         <HeaderCell label="phone" />

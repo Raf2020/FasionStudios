@@ -52,6 +52,7 @@ const BookingsPage = () => {
         bookings={bookings}
         onCheckClick={handleCheckClick}
         onSelectClick={handleSelectClick}
+        allSelected={selectedBookings.length === bookings.length}
       />
       <div className="flex gap-6">
         <PrimaryButton

@@ -4,7 +4,6 @@ import { Fragment, useEffect, useState } from "react";
 import PrimaryButton from "../global/elements/primary-button";
 import Input from "../global/elements/input";
 import PhoneInput, { CountryData } from "react-phone-input-2";
-import { phoneInputStyle } from "@/shared/constants/app.const";
 import Select from "../global/elements/select";
 
 import "react-phone-input-2/lib/style.css";
@@ -12,12 +11,24 @@ import { useAlertStore } from "@/zustand/alert-store";
 import { processBooking } from "@/actions/booking/booking.action";
 import Image from "next/image";
 import { sendEmailForBooking } from "@/actions/email/email.action";
+import { useRef } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import { AppConfig } from "@/shared/constants/app.const";
+import { phoneInputStyle } from "@/shared/constants/style.const";
 
-const danceStyles = ["Ballet", "Hip Hop", "Jazz", "Contemporary", "Tap", "Yoga"];
+const danceStyles = [
+  "Ballet",
+  "Hip Hop",
+  "Jazz",
+  "Contemporary",
+  "Tap",
+  "Yoga",
+];
 const ageGroups = ["Child", "Teen", "Adult"];
 
 const BookingBox = () => {
   const { showAlert } = useAlertStore();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [pending, setPending] = useState<boolean>(false);
   const [boxShown, setBoxShown] = useState<boolean>(false);
 
@@ -117,6 +128,10 @@ const BookingBox = () => {
                 setValue={setAgeGroup}
               />
             </div>
+            <ReCAPTCHA
+              sitekey={AppConfig.RecaptchaSiteKey!}
+              ref={recaptchaRef}
+            />
             <PrimaryButton
               name="BOOK MY FREE SPOT"
               fullWidth

@@ -38,18 +38,26 @@ const HomeSubscribeSection = () => {
   };
 
   return (
-    <div className="flex w-full py-8 px-6 flex-col items-center gap-6 sm:py-24 sm:px-15 sm:flex-row sm:gap-0">
-      <div className="w-full">
-        <div className="flex w-full max-w-[540px] flex-col gap-4">
+    <div
+      id="about"
+      className="flex w-full py-8 px-6 flex-col items-center gap-6 sm:py-24 sm:px-15 sm:flex-row sm:gap-0"
+    >
+      <div className="w-full pr-6 sm:pr-15">
+        <div className="flex w-full flex-col gap-4">
           <p className="text-black text-2xl sm:text-[52px] sm:leading-[64px]">
             Get Ready, Coín! Fusion Studios is Almost Here!
           </p>
           <p className="text-black text-base leading-[30px]">
-            We are excited to announce that Fusion Studios will soon be opening
-            its doors in the heart of Coín, Malaga! Nestled in a vibrant
-            community, our studio is the perfect place for aspiring dancers of
-            all ages to explore their creativity, develop their skills, and make
-            lasting friendships.
+            Fusion Studio is a thoughtfully designed space dedicated to bringing
+            art and movement to the heart of the community. Located in Coín, it
+            aims to inspire residents and those from surrounding areas to
+            embrace dance and motion as part of their daily lives. At its core,
+            Fusion Studio fosters connection, encourages an active lifestyle,
+            and sparks interest in creative expression among younger
+            generations. From dance to circus arts and martial arts, the studio
+            offers a diverse range of activities, ensuring there’s something for
+            everyone. Families are warmly invited to join in and discover the
+            joy of moving together.
           </p>
           <Input placeholder="Email" value={email} setValue={setEmail} />
           <PrimaryButton

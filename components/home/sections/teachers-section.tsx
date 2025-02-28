@@ -1,29 +1,22 @@
+"use client";
+
+import { teachers } from "@/shared/constants/data.const";
 import TeacherThumb from "../teacher-thumb";
+import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import TeachersSlider from "../teachers-slider";
+import { useEffect, useState } from "react";
 
 const HomeTeachersSections = () => {
-  const teachers = [
-    {
-      name: "Sophia Martinez",
-      profession: "Contemporary and Jazz",
-      description:
-        "Sophia has over 10 years of experience teaching contemporary and jazz dance to students of all levels. She’s known for her expressive choreography and has worked on several stage productions and music videos.",
-      image: "/images/home/teacher-1.svg",
-    },
-    {
-      name: "Ethan Carter",
-      profession: "Hip-Hop and Breakdancing",
-      description:
-        "Ethan is a high-energy dance instructor with a background in street dancing and hip-hop. He’s competed in international breakdance battles and loves teaching creative freestyle techniques.",
-      image: "/images/home/teacher-2.svg",
-    },
-    {
-      name: "Lila Gupta",
-      profession: "Classical Indian Dance",
-      description:
-        "Lila is a trained Bharatanatyam dancer with a modern twist. She combines traditional Indian dance forms with contemporary styles to create unique performances. She’s also a certified yoga instructor.",
-      image: "/images/home/teacher-3.svg",
-    },
-  ];
+  const [mobileMode, setMobileMode] = useState(false);
+
+  useEffect(() => {
+    setMobileMode(window.innerWidth < 640);
+  }, []);
 
   return (
     <div className="w-full pb-8 px-6 sm:pb-20 sm:px-15">
@@ -39,17 +32,23 @@ const HomeTeachersSections = () => {
           their expertise and love for movement to inspire our young dancers.
         </p>
       </div>
-      <div className="flex w-full flex-col sm:flex-row gap-6">
-        {teachers.map((teacher, index) => (
-          <TeacherThumb
-            key={index}
-            name={teacher.name}
-            profession={teacher.profession}
-            description={teacher.description}
-            image={teacher.image}
-          />
+      <Swiper
+        className="w-full"
+        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        slidesPerView={mobileMode ? 1 : 3}
+        navigation
+        pagination={{ clickable: true }}
+        scrollbar={{ draggable: true, snapOnRelease: true, hide: true }}
+      >
+        {teachers.map((teacher) => (
+          <SwiperSlide key={teacher.name} className="pb-10">
+            <div className="w-full sm:px-6">
+              <TeacherThumb teacherData={teacher} />
+            </div>
+          </SwiperSlide>
         ))}
-      </div>
+        <TeachersSlider slideCount={mobileMode ? 5 : 3} />
+      </Swiper>
     </div>
   );
 };

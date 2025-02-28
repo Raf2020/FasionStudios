@@ -9,34 +9,31 @@ import { useEffect, useMemo, useState } from "react";
 const menuItems = [
   {
     name: "Home",
-    href: "#home",
+    href: "/#home",
   },
   {
     name: "About Us",
-    href: "#about",
+    href: "/#about",
   },
   {
     name: "Class",
-    href: "#classes",
+    href: "/#classes",
   },
   {
     name: "Contact",
-    href: "#contact",
-  },
-  {
-    name: "Terms",
-    href: "#terms",
-  },
-  {
-    name: "Policy",
-    href: "#policy",
+    href: "/#contact",
   },
 ];
 
 const socialMedias = [
-  { name: "Facebook", href: "/facebook" },
-  { name: "Instagram", href: "/instagram" },
-  { name: "Twitter", href: "/twitter" },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/fusionstudioscoin/",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/fusionstudioscoin/",
+  },
 ];
 
 const Footer = () => {
@@ -72,7 +69,7 @@ const Footer = () => {
         alt="hamburger"
       />
       <div className="flex w-full px-0 pb-6 flex-col gap-8 sm:px-20 sm:pb-20 sm:flex-row sm:gap-0 sm:justify-between">
-        <Link href="#home" onClick={() => setFooterShown(false)}>
+        <Link href="/#home" onClick={() => setFooterShown(false)}>
           <Image
             className="w-48 sm:w-auto"
             src="/images/footer/logo.svg"
@@ -82,14 +79,20 @@ const Footer = () => {
           />
         </Link>
         <div className="flex flex-col gap-8 sm:flex-row sm:gap-28 text-[#9A9A9A]">
-          <div>
+          <div className="flex flex-col">
             <p className="pb-4 text-white text-sm font-medium">CONTACT</p>
-            <p className="pb-2 text-base leading-[30px]">
+            <a
+              className="pb-2 text-base leading-[30px]"
+              href="https://www.google.com/maps/place/C.+Arqu%C3%ADmedes,+42,+29100+Co%C3%ADn,+M%C3%A1laga,+Spain/data=!4m2!3m1!1s0xd72dd4239b8a213:0x35758345e4f05095?sa=X&ved=1t:242&ictx=111&cshid=1740708454018309"
+              target="_blank"
+            >
               Fusion Studios, C.
               <br />
               Arquimedes 42, Coín, Malaga
-            </p>
-            <p className="text-base">Email: fusionstudios@gmail.com</p>
+            </a>
+            <a href="mailto:fusionstudioscoin@gmail.com" className="text-base">
+              Email: fusionstudios@gmail.com
+            </a>
           </div>
           <div>
             <p className="pb-4 text-white text-sm font-medium">MENU</p>
@@ -109,9 +112,14 @@ const Footer = () => {
             <p className="pb-4 text-white text-sm font-medium">SOCIAL MEDIA</p>
             <div className="flex flex-col gap-2">
               {socialMedias.map((item) => (
-                <p key={item.name} className="text-sm leading-[30px]">
+                <a
+                  key={item.name}
+                  className="text-sm leading-[30px]"
+                  href={item.href}
+                  target="_blank"
+                >
                   {item.name}
-                </p>
+                </a>
               ))}
             </div>
           </div>

@@ -7,16 +7,9 @@ export const AppConfig = {
   // NODE MAILER
   SenderGmail: process.env.SENDER_GMAIL,
   SenderGmailPass: process.env.SENDER_GMAIL_PASS,
-};
-
-export const phoneInputStyle = {
-  width: "100%",
-  height: "48px",
-  color: "black",
-  fontSize: "16px",
-  borderColor: "#E5E5E5",
-  borderRadius: "8px",
-  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, 0.07)",
+  // RECAPTCHA
+  RecaptchaSiteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+  RecaptchaSecretKey: process.env.RECAPTCHA_SECRET_KEY,
 };
 
 export const appMetadata: Metadata = {

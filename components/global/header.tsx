@@ -8,10 +8,10 @@ import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const menuItems = [
-  { name: "Home", href: "#home" },
-  { name: "About us", href: "#about" },
-  { name: "Classes", href: "#classes" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/#home" },
+  { name: "About us", href: "/#about" },
+  { name: "Classes", href: "/#classes" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 const Header = () => {
@@ -52,7 +52,7 @@ const Header = () => {
     >
       <div className="w-full bg-black bg-opacity-20">
         <div className="flex w-full py-4 px-6 sm:px-15 items-center justify-between">
-          <Link href="#home">
+          <Link href="/#home">
             <Image
               className="w-24 sm:w-auto"
               src="/images/header/logo.svg"

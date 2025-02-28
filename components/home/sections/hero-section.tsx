@@ -25,7 +25,7 @@ const HomeHeroSection = () => {
             <p className="text-white text-base sm:text-xl leading-normal">
               Join the dance revolution in Coín! Fusion Studios is opening soon,
               featuring a variety of classes from ballet to aerial silks.
-              Discover your rhythm with us.
+              {/* Discover your rhythm with us. */}
             </p>
           </div>
         </div>

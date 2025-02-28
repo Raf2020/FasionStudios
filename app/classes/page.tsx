@@ -1,0 +1,23 @@
+import ClassThumb from "@/components/home/class-thumb";
+import { classes } from "@/shared/constants/data.const";
+
+const ClassesPage = () => {
+  return (
+    <div id="classes" className="w-full pb-8 sm:pb-20">
+      <div className="w-full pt-28 px-6 sm:pt-40 sm:pb-[300px] sm:px-15 bg-primary-purple">
+        <div className="w-full pb-8 sm:pb-0">
+          <p className="max-w-3xl text-white text-2xl sm:text-[52px] sm:leading-[64px]">
+            All classes
+          </p>
+        </div>
+      </div>
+      <div className="sm:-mt-[250px] grid w-full pt-8 px-6 sm:pt-0 sm:px-15 grid-cols-1 sm:grid-cols-4 gap-6">
+        {classes.map((cls) => (
+          <ClassThumb key={cls.name} classData={cls} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default ClassesPage;
