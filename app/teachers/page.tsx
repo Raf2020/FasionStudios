@@ -1,5 +1,12 @@
 import TeacherThumb from "@/components/home/teacher-thumb";
+import { appMetadata } from "@/shared/constants/app.const";
 import { teachers } from "@/shared/constants/data.const";
+
+export const metadata = {
+  ...appMetadata,
+  description:
+    "Learn from the best at Fusion Studios in Coín, Málaga! Our skilled instructors offer classes in ballet, aerial silks, yoga, Brazilian Jiu-Jitsu, and more. Join our welcoming community and grow with expert guidance.",
+};
 
 const TeachersPage = () => {
   return (

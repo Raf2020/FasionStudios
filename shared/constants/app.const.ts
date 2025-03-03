@@ -15,7 +15,7 @@ export const AppConfig = {
 export const appMetadata: Metadata = {
   title: "Fusion Studios - Dance Classes in Coín",
   description:
-    "Join the dance revolution in Coín! Fusion Studios offers a variety of classes from ballet to aerial silks. Discover your rhythm with us.",
+    "Join Fusion Studios in Coín, Málaga, for a wide range of dance and fitness classes, including ballet, aerial silks, Brazilian Jiu-Jitsu, yoga, and more! Perfect for families, kids, and adults. Sign up for free classes and updates.",
   keywords: [
     "dance classes",
     "ballet",

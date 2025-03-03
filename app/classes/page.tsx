@@ -1,5 +1,12 @@
 import ClassThumb from "@/components/home/class-thumb";
+import { appMetadata } from "@/shared/constants/app.const";
 import { classes } from "@/shared/constants/data.const";
+
+export const metadata = {
+  ...appMetadata,
+  description:
+    "Join Fusion Studios in Coín, Málaga, for top-rated dance and fitness classes! Explore ballet, aerial silks, yoga, Brazilian Jiu-Jitsu, and more. Perfect for families, kids, and adults.",
+};
 
 const ClassesPage = () => {
   return (
