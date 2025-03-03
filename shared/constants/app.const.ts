@@ -31,7 +31,7 @@ export const appMetadata: Metadata = {
   openGraph: {
     title: "Fusion Studios - Dance Classes in Coín",
     description:
-      "Join the dance revolution in Coín! Fusion Studios offers a variety of classes from ballet to aerial silks. Discover your rhythm with us.",
+      "Join Fusion Studios in Coín, Málaga, for a wide range of dance and fitness classes, including ballet, aerial silks, Brazilian Jiu-Jitsu, yoga, and more! Perfect for families, kids, and adults. Sign up for free classes and updates.",
     images: "https://www.fusionstudios.es/images/header/logo.svg",
     url: "https://www.fusionstudios.es",
     type: "website",
@@ -40,7 +40,7 @@ export const appMetadata: Metadata = {
     card: "summary_large_image",
     title: "Fusion Studios - Dance Classes in Coín",
     description:
-      "Join the dance revolution in Coín! Fusion Studios offers a variety of classes from ballet to aerial silks. Discover your rhythm with us.",
+      "Join Fusion Studios in Coín, Málaga, for a wide range of dance and fitness classes, including ballet, aerial silks, Brazilian Jiu-Jitsu, yoga, and more! Perfect for families, kids, and adults. Sign up for free classes and updates.",
     images: "https://www.fusionstudios.es/images/header/logo.svg",
   },
   icons: "https://www.fusionstudios.es/favicon.ico",
