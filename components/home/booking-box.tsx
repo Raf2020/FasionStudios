@@ -82,7 +82,7 @@ const BookingBox = () => {
     <Fragment>
       {boxShown ? (
         <div className="fixed left-0 top-0 sm:static flex w-full h-full px-4 sm:px-0 items-center bg-black bg-opacity-50 sm:bg-transparent">
-          <div className="flex w-full max-w-[450px] py-6 px-4 sm:py-8 sm:px-6 flex-col gap-6 rounded-4xl bg-[#F1F6FE]">
+          <div className="flex w-full max-w-[450px] py-4 px-4 sm:py-6 sm:px-6 flex-col gap-4 rounded-4xl bg-[#F1F6FE]">
             <div className="flex w-full flex-col gap-2">
               <Image
                 className="sm:hidden self-end"
@@ -96,7 +96,7 @@ const BookingBox = () => {
                 Join us for free classes and updates on our opening in Coin!
               </p>
             </div>
-            <div className="flex w-full flex-col gap-5">
+            <div className="flex w-full flex-col gap-4">
               <Input label="Full Name" value={name} setValue={setName} />
               <Input label="Email Address" value={email} setValue={setEmail} />
               <div className="w-full">

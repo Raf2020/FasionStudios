@@ -3,10 +3,10 @@ import { classes } from "@/shared/constants/data.const";
 
 const ClassesPage = () => {
   return (
-    <div id="classes" className="w-full pb-8 sm:pb-20">
+    <div className="w-full pb-8 sm:pb-20">
       <div className="w-full pt-28 px-6 sm:pt-40 sm:pb-[300px] sm:px-15 bg-primary-purple">
         <div className="w-full pb-8 sm:pb-0">
-          <p className="max-w-3xl text-white text-2xl sm:text-[52px] sm:leading-[64px]">
+          <p className="text-white text-2xl sm:text-[52px] sm:leading-[64px]">
             All classes
           </p>
         </div>
