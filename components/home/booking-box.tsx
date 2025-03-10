@@ -148,9 +148,9 @@ const BookingBox = () => {
           </div>
         </div>
       ) : (
-        <div className="sm:hidden fixed left-0 bottom-0 w-full py-2 px-2">
+        <div className="sm:hidden z-20 fixed left-0 bottom-0 w-full py-2 px-2">
           <PrimaryButton
-            name="BOOK MY FREE SPOT"
+            name={t("Book")}
             fullWidth
             onClick={() => setBoxShown(true)}
           />
