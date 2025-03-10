@@ -47,7 +47,7 @@ const BookingBox = () => {
     fetch("https://ipapi.co/json/")
       .then((res) => res.json())
       .then((res) => {
-        setPhone(res.country_calling_code ?? "");
+        setPhone(res.country_calling_code ?? "+34");
         const locale = String(res.country).toLowerCase();
         router.push(pathName, { locale: locale === "es" ? locale : "en" });
       });
