@@ -67,22 +67,24 @@ const Header = () => {
               alt="logo"
             />
           </Link>
-          <div className="hidden sm:flex gap-6">
-            {menuItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-white text-base font-semibold hover:text-gray-200"
-              >
-                {t(`${item.name}`)}
-              </Link>
-            ))}
-            {/* <Link
+          <div className="flex items-center gap-6">
+            <div className="hidden sm:flex gap-6">
+              {menuItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className="text-white text-base font-semibold hover:text-gray-200"
+                >
+                  {t(`${item.name}`)}
+                </Link>
+              ))}
+              {/* <Link
               href={currentUser ? "/admin" : "/auth/login"}
               className="text-white text-base font-semibold hover:text-gray-200"
             >
               {currentUser ? "Admin" : "Login"}
             </Link> */}
+            </div>
             <Link
               href={localePathName + window.location.hash}
               locale={locale === "es" ? "en" : "es"}
@@ -90,15 +92,15 @@ const Header = () => {
             >
               {locale === "es" ? "EN" : "ES"}
             </Link>
+            <Image
+              className="w-8 sm:hidden cursor-pointer"
+              onClick={() => setFooterShown(true)}
+              src="/images/icons/hamburger.svg"
+              width={64}
+              height={64}
+              alt="hamburger"
+            />
           </div>
-          <Image
-            className="w-8 sm:hidden cursor-pointer"
-            onClick={() => setFooterShown(true)}
-            src="/images/icons/hamburger.svg"
-            width={64}
-            height={64}
-            alt="hamburger"
-          />
         </div>
       </div>
     </div>
