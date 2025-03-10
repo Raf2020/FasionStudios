@@ -1,7 +1,7 @@
 "use client";
 
 import { useCurrentUser } from "@/hooks/use-current-user";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import React from "react";
 
 const SigninRequired = ({ children }: { children: React.ReactNode }) => {

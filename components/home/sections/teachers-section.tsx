@@ -1,15 +1,17 @@
 "use client";
 
-import { teachers } from "@/shared/constants/data.const";
 import TeacherThumb from "../teacher-thumb";
-import { SwiperSlide } from "swiper/react";
-import { useEffect, useState } from "react";
 import SwiperWrapper from "@/components/global/swiper/swiper-wrapper";
 import SwiperAutoSlider from "@/components/global/swiper/swiper-auto-slider";
 import PrimaryButton from "@/components/global/elements/primary-button";
-import { useRouter } from "next/navigation";
+import { teachers } from "@/shared/constants/data.const";
+import { SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 const HomeTeachersSections = () => {
+  const t = useTranslations("TeacherSection");
   const router = useRouter();
   const [mobileMode, setMobileMode] = useState(false);
 
@@ -25,16 +27,14 @@ const HomeTeachersSections = () => {
       <div className="flex w-full pb-8 sm:pb-20 flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="pb-2 text-black text-2xl sm:text-[52px] sm:leading-[72px]">
-            Meet our world class teachers
+            {t("OurTeachers")}
           </p>
           <p className="max-w-xl text-black text-base leading-[30px]">
-            Our passionate teachers come from every corner of the globe,
-            bringing their expertise and love for movement to inspire our young
-            dancers.
+            {t("Description")}
           </p>
         </div>
         <PrimaryButton
-          name="View All"
+          name={t("ViewAll")}
           onClick={() => router.push("/teachers")}
         />
       </div>
@@ -42,7 +42,14 @@ const HomeTeachersSections = () => {
         {teachers.map((teacher) => (
           <SwiperSlide key={teacher.name} className="pb-10">
             <div className="w-full sm:px-6">
-              <TeacherThumb teacherData={teacher} />
+              <TeacherThumb
+                teacherData={{
+                  ...teacher,
+                  name: t(`Teachers.${teacher.name}.Name`),
+                  profession: t(`Teachers.${teacher.name}.Profession`),
+                  description: t(`Teachers.${teacher.name}.Description`),
+                }}
+              />
             </div>
           </SwiperSlide>
         ))}

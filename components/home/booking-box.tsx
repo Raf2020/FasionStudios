@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import PrimaryButton from "../global/elements/primary-button";
 import Input from "../global/elements/input";
 import PhoneInput, { CountryData } from "react-phone-input-2";
@@ -16,11 +16,16 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { AppConfig } from "@/shared/constants/app.const";
 import { phoneInputStyle } from "@/shared/constants/style.const";
 import { classes } from "@/shared/constants/data.const";
+import { useTranslations } from "next-intl";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 const ageGroups = ["Child", "Teen", "Adult"];
 
 const BookingBox = () => {
-  const danceStyles = classes.map((cls) => cls.name);
+  const t = useTranslations("FormSection");
+  const classT = useTranslations("ClassSection");
+  const pathName = usePathname();
+  const router = useRouter();
 
   const { showAlert } = useAlertStore();
   const recaptchaRef = useRef<ReCAPTCHA>(null);
@@ -33,11 +38,18 @@ const BookingBox = () => {
   const [danceStyle, setDanceStyle] = useState<string>("");
   const [ageGroup, setAgeGroup] = useState<string>("");
 
+  const danceStyles = useMemo(
+    () => classes.map((cls) => classT(`Classes.${cls.name}.Name`)),
+    [classT]
+  );
+
   useEffect(() => {
     fetch("https://ipapi.co/json/")
       .then((res) => res.json())
       .then((res) => {
         setPhone(res.country_calling_code ?? "");
+        const locale = String(res.country).toLowerCase();
+        router.push(pathName, { locale: locale === "es" ? locale : "en" });
       });
     // BOX SHOWN
     setBoxShown(window.innerWidth >= 640);
@@ -93,15 +105,15 @@ const BookingBox = () => {
                 onClick={() => setBoxShown(false)}
               />
               <p className="text-black text-2xl font-medium leading-tight">
-                Join us for free classes and updates on our opening in Coin!
+                {t("JoinUs")}
               </p>
             </div>
             <div className="flex w-full flex-col gap-4">
-              <Input label="Full Name" value={name} setValue={setName} />
-              <Input label="Email Address" value={email} setValue={setEmail} />
+              <Input label={t("FullName")} value={name} setValue={setName} />
+              <Input label={t("Email")} value={email} setValue={setEmail} />
               <div className="w-full">
                 <p className="pb-2 text-black text-base font-semibold">
-                  Phone Number (optional)
+                  {t("Phone")}
                 </p>
                 <PhoneInput
                   inputStyle={phoneInputStyle}
@@ -111,13 +123,13 @@ const BookingBox = () => {
                 />
               </div>
               <Select
-                label="Preferred Dance Styles"
+                label={t("Style")}
                 options={danceStyles}
                 value={danceStyle}
                 setValue={setDanceStyle}
               />
               <Select
-                label="Interested Age Group"
+                label={t("Age")}
                 options={ageGroups}
                 value={ageGroup}
                 setValue={setAgeGroup}
@@ -128,7 +140,7 @@ const BookingBox = () => {
               ref={recaptchaRef}
             />
             <PrimaryButton
-              name="BOOK MY FREE SPOT"
+              name={t("Book")}
               fullWidth
               disabled={pending}
               onClick={handleBooking}

@@ -7,7 +7,7 @@ import { checkEmailFormat } from "@/shared/functions/global.functions";
 import { UserRole } from "@/types/user.type";
 import { useAlertStore } from "@/zustand/alert-store";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 
 const LoginPage = () => {

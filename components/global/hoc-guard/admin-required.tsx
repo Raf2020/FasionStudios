@@ -2,7 +2,7 @@
 
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { UserRole } from "@/types/user.type";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import React from "react";
 
 const AdminRequired = ({ children }: { children: React.ReactNode }) => {

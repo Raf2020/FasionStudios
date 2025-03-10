@@ -2,8 +2,9 @@
 
 // import { useCurrentUser } from "@/hooks/use-current-user";
 import { useGlobalStore } from "@/zustand/global-store";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -15,6 +16,7 @@ const menuItems = [
 ];
 
 const Header = () => {
+  const t = useTranslations("HeaderSection");
   // const currentUser = useCurrentUser();
   const { setFooterShown } = useGlobalStore();
   const [headerShown, setHeaderShown] = useState<boolean>(true);
@@ -68,7 +70,7 @@ const Header = () => {
                 href={item.href}
                 className="text-white text-base font-semibold hover:text-gray-200"
               >
-                {item.name}
+                {t(`${item.name}`)}
               </Link>
             ))}
             {/* <Link

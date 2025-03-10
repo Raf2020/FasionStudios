@@ -1,10 +1,11 @@
 "use client";
 
-import { useGlobalStore } from "@/zustand/global-store";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { useGlobalStore } from "@/zustand/global-store";
+import { useTranslations } from "next-intl";
 
 const menuItems = [
   {
@@ -37,6 +38,7 @@ const socialMedias = [
 ];
 
 const Footer = () => {
+  const t = useTranslations("FooterSection");
   const pathName = usePathname();
   const { footerShown, setFooterShown } = useGlobalStore();
   const [isMobileView, setIsMobileView] = useState<boolean>(true);
@@ -80,22 +82,24 @@ const Footer = () => {
         </Link>
         <div className="flex flex-col gap-8 sm:flex-row sm:gap-28 text-[#9A9A9A]">
           <div className="flex flex-col">
-            <p className="pb-4 text-white text-sm font-medium">CONTACT</p>
+            <p className="pb-4 text-white text-sm font-medium">
+              {t("Contact")}
+            </p>
             <a
               className="pb-2 text-base leading-[30px]"
               href="https://www.google.com/maps/place/C.+Arqu%C3%ADmedes,+42,+29100+Co%C3%ADn,+M%C3%A1laga,+Spain/data=!4m2!3m1!1s0xd72dd4239b8a213:0x35758345e4f05095?sa=X&ved=1t:242&ictx=111&cshid=1740708454018309"
               target="_blank"
             >
-              Fusion Studios, C.
+              {t("Fusion Studios")}
               <br />
-              Arquimedes 42, Coín, Malaga
+              {t("Address")}
             </a>
             <a href="mailto:fusionstudioscoin@gmail.com" className="text-base">
-              Email: fusionstudios@gmail.com
+              {t("Email")}
             </a>
           </div>
           <div>
-            <p className="pb-4 text-white text-sm font-medium">MENU</p>
+            <p className="pb-4 text-white text-sm font-medium">{t("Menu")}</p>
             <div className="flex flex-col gap-2">
               {menuItems.map((item) => (
                 <Link
@@ -103,13 +107,15 @@ const Footer = () => {
                   href={item.href}
                   onClick={() => setFooterShown(false)}
                 >
-                  <p className="text-sm leading-[30px]">{item.name}</p>
+                  <p className="text-sm leading-[30px]">
+                    {t(`Menus.${item.name}`)}
+                  </p>
                 </Link>
               ))}
             </div>
           </div>
           <div>
-            <p className="pb-4 text-white text-sm font-medium">SOCIAL MEDIA</p>
+            <p className="pb-4 text-white text-sm font-medium">{t("Social")}</p>
             <div className="flex flex-col gap-2">
               {socialMedias.map((item) => (
                 <a
@@ -118,7 +124,7 @@ const Footer = () => {
                   href={item.href}
                   target="_blank"
                 >
-                  {item.name}
+                  {t(`Socials.${item.name}`)}
                 </a>
               ))}
             </div>
@@ -128,7 +134,7 @@ const Footer = () => {
       <div className="w-full h-[1px] bg-white"></div>
       <div className="w-full py-6">
         <p className="w-full text-center text-white text-sm">
-          © 2025 Fusion Studios. All Rights Reserved.
+          {t("CopyRight")}
         </p>
       </div>
     </div>

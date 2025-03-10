@@ -6,10 +6,12 @@ import PrimaryButton from "@/components/global/elements/primary-button";
 import { checkEmailFormat } from "@/shared/functions/global.functions";
 import { Subscriber } from "@/types/subscribe.type";
 import { useAlertStore } from "@/zustand/alert-store";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 
 const HomeSubscribeSection = () => {
+  const t = useTranslations("SubscribeSection");
   const { showAlert } = useAlertStore();
   const [pending, setPending] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -45,24 +47,15 @@ const HomeSubscribeSection = () => {
       <div className="w-full pr-6 sm:pr-15">
         <div className="flex w-full flex-col gap-4">
           <p className="text-black text-2xl sm:text-[52px] sm:leading-[64px]">
-            Get Ready, Coín! Fusion Studios is Almost Here!
+            {t("Title")}
           </p>
           <p className="text-black text-base leading-[30px]">
-            Fusion Studio is a thoughtfully designed space dedicated to bringing
-            art and movement to the heart of the community. Located in Coín, it
-            aims to inspire residents and those from surrounding areas to
-            embrace dance and motion as part of their daily lives. At its core,
-            Fusion Studio fosters connection, encourages an active lifestyle,
-            and sparks interest in creative expression among younger
-            generations. From dance to circus arts and martial arts, the studio
-            offers a diverse range of activities, ensuring there’s something for
-            everyone. Families are warmly invited to join in and discover the
-            joy of moving together.
+            {t("Description")}
           </p>
           <Input placeholder="Email" value={email} setValue={setEmail} />
           <PrimaryButton
             disabled={pending}
-            name="Subscribe Now"
+            name={t("SubscribeNow")}
             onClick={handleSubscribe}
           />
         </div>

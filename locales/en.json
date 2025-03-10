@@ -3,5 +3,165 @@
     "GetReadyTo": "Get Ready to ",
     "Move": "Move!",
     "Description": "Join the dance revolution in Coín! Fusion Studios is opening soon, featuring a variety of classes from ballet to aerial silks."
+  },
+  "ClassSection": {
+    "OurClasses": "OUR CLASSES",
+    "Description": "From Jiu-Jitsu to belly dancing, we have something for everyone!",
+    "ViewAll": "View All",
+    "Classes": {
+      "Ballet": {
+        "Name": "Ballet",
+        "Description": "Combines classical elegance and technique, fostering strength, precision, and artistic expression."
+      },
+      "Urban/Pro": {
+        "Name": "Urban/Pro",
+        "Description": "Features energetic, modern choreography inspired by contemporary music and urban culture, emphasizing style and performance flair."
+      },
+      "Contemporary": {
+        "Name": "Contemporary",
+        "Description": "Encourages fluid, expressive movement, blending creativity and emotional depth for a dynamic dance experience."
+      },
+      "Brazilian Jiu-Jitsu": {
+        "Name": "Brazilian Jiu-Jitsu",
+        "Description": "Focuses on grappling and ground techniques, building strength, strategy, and resilience through practical self-defense skills."
+      },
+      "Yoga": {
+        "Name": "Yoga",
+        "Description": "Integrates physical postures, breathwork, and mindfulness to enhance flexibility, strength, and inner peace."
+      },
+      "Pilates": {
+        "Name": "Pilates",
+        "Description": "Emphasizes core strength and controlled movements, improving posture, balance, and overall body awareness."
+      },
+      "Belly Dance": {
+        "Name": "Belly Dance",
+        "Description": "Celebrates rhythmic, graceful movements, enhancing coordination, posture, and self-expression."
+      },
+      "Salsa/Bachata": {
+        "Name": "Salsa/Bachata",
+        "Description": "Captivates with lively rhythms and partner interactions, promoting coordination, rhythm, and social connection."
+      },
+      "Ballroom": {
+        "Name": "Ballroom",
+        "Description": "Exudes elegance and partnership through structured dances, enhancing grace, timing, and coordination."
+      },
+      "Circus": {
+        "Name": "Circus",
+        "Description": "Combines acrobatics and performance art, cultivating strength, agility, and creativity through unique skills."
+      },
+      "Acrobatics": {
+        "Name": "Acrobatics",
+        "Description": "Merges strength, flexibility, and balance, focusing on dynamic movements and coordination."
+      },
+      "Flexibility": {
+        "Name": "Flexibility",
+        "Description": "Improves range of motion and reduces injury risk, focusing on stretching and suppleness."
+      },
+      "Mobility": {
+        "Name": "Mobility",
+        "Description": "Enhances joint function and movement efficiency, emphasizing dynamic exercises and body awareness."
+      },
+      "Pole Dance": {
+        "Name": "Pole Dance",
+        "Description": "Blends strength and artistry, featuring challenging spins and climbs that promote fitness and creativity."
+      },
+      "Aerial Silks": {
+        "Name": "Aerial Silks",
+        "Description": "Offers a graceful aerial experience, combining strength and beauty through suspended movement on fabric."
+      },
+      "Aerial Hoops": {
+        "Name": "Aerial Hoops",
+        "Description": "Balances strength and elegance, providing captivating routines in a suspended ring."
+      },
+      "Jazz": {
+        "Name": "Jazz",
+        "Description": "Characterized by sharp, stylish movements, blending energy and rhythm for an expressive dance style."
+      },
+      "Tap": {
+        "Name": "Tap",
+        "Description": "Creates rhythmic music through precise footwork, combining lively steps with sound and movement."
+      }
+    }
+  },
+  "TeacherSection": {
+    "OurTeachers": "Meet our world class teachers",
+    "Description": "Our passionate teachers come from every corner of the globe, bringing their expertise and love for movement to inspire our young dancers.",
+    "ViewAll": "View All",
+    "Teachers": {
+      "Sebastian": {
+        "Name": "Sebastian",
+        "Profession": "Brazilian Jiu-Jitsu and Mobility",
+        "Description": "Sebastian has extensive experience teaching Brazilian Jiu-Jitsu and mobility to students of all ages. He is known for his engaging teaching style and has helped many students improve their physical fitness and movement skills."
+      },
+      "Candelaria": {
+        "Name": "Candelaria",
+        "Profession": "Flexibility and Acrobatics",
+        "Description": "Candelaria, originally from Argentina, has extensive experience in fitness and flexibility training. A certified Les Mills instructor, she is passionate about Pole dance, Aerials, and Acrobatics. Known for her inspiring teaching, she helps gymnasts, dancers, and athletes enhance their performance. Now based in Spain, Candelaria offers classes in both Spanish and English."
+      },
+      "Sofia": {
+        "Name": "Sofia",
+        "Profession": "Dance Instructor",
+        "Description": "Sofia is a passionate dance instructor with a degree in Movement and Dance from the UK. Raised in Spain, she speaks fluent English, Spanish, and Swedish. She specializes in ballet, modern, jazz, and commercial dance. Sofia will teach kids' and teens' ballet and pop dance classes every Saturday, helping young dancers grow in confidence and technique."
+      },
+      "Elisa": {
+        "Name": "Elisa",
+        "Profession": "Contemporary Dance and Fitness",
+        "Description": "Elisa is a highly talented instructor with expertise in contemporary dance, Pilates, ballet barre, and flexibility training. Her international background and incredible energy make her classes inclusive, dynamic, and fun. Elisa speaks Italian, English, French, Spanish, and German. Join her classes to elevate your dance and fitness routine!"
+      },
+      "Sanne": {
+        "Name": "Sanne",
+        "Profession": "Dance Instructor",
+        "Description": "Sanne is a skilled dance instructor trained at the Royal Danish Ballet and the School of American Ballet in New York. With extensive experience performing with renowned companies across Europe, she has collaborated with esteemed choreographers and taught at notable institutions internationally. Sanne speaks English, Danish, German, and Swedish fluently and can also teach in Spanish. Her rich background in performance and teaching makes her an incredible asset to our school."
+      }
+    }
+  },
+  "AdSection": {
+    "Family": {
+      "Title": "Designed for Families!",
+      "Description": "At Fusion Studio, we have something for everyone. Parents can join classes with their babies, and we also offer classes for adults while their kids are in dance class. It's a fun way for the whole family to enjoy time together!"
+    },
+    "Kid": {
+      "Title": "Designed for Kids!",
+      "Description": "Fusion Studio is all about encouraging kids to be creative and confident. Our enjoyable classes are specially designed for children of all ages. Come and join us to spark their love for dance!"
+    }
+  },
+  "SubscribeSection": {
+    "Title": "Get Ready, Coín! Fusion Studios is Almost Here!",
+    "Description": "Fusion Studio is a thoughtfully designed space dedicated to bringing art and movement to the heart of the community. Located in Coín, it aims to inspire residents and those from surrounding areas to embrace dance and motion as part of their daily lives. At its core, Fusion Studio fosters connection, encourages an active lifestyle, and sparks interest in creative expression among younger generations. From dance to circus arts and martial arts, the studio offers a diverse range of activities, ensuring there’s something for everyone. Families are warmly invited to join in and discover the joy of moving together.",
+    "SubscribeNow": "Subscribe Now"
+  },
+  "FooterSection": {
+    "Contact": "CONTACT",
+    "Fusion Studios": "Fusion Studios, C.",
+    "Address": "Arquimedes 42, Coín, Malaga",
+    "Email": "Email: fusionstudios@gmail.com",
+    "Menu": "MENU",
+    "Menus": {
+      "Home": "Home",
+      "About Us": "About Us",
+      "Class": "Class",
+      "Contact": "Contact"
+    },
+    "Social": "SOCIAL MEDIA",
+    "Socials": {
+      "Instagram": "Instagram",
+      "Facebook": "Facebook"
+    },
+    "CopyRight": "© 2025 Fusion Studios. All Rights Reserved."
+  },
+  "HeaderSection": {
+    "Home": "Home",
+    "About us": "About us",
+    "Classes": "Classes",
+    "Contact": "Contact"
+  },
+  "FormSection": {
+    "JoinUs": "Join us for free classes and updates on our opening in Coin!",
+    "FullName": "Full Name",
+    "Email": "Email Address",
+    "Phone": "Phone Number (optional)",
+    "Style": "Preferred Dance Styles",
+    "Age": "Interested Age Group",
+    "Book": "BOOK MY FREE SPOT"
   }
 }
