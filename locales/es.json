@@ -5,6 +5,7 @@
     "Description": "¡Únete a la revolución del baile en Coín! Fusion Studios abrirá pronto, ofreciendo una variedad de clases desde ballet hasta telas aéreas."
   },
   "ClassSection": {
+    "AllClasses": "Todas las Clases",
     "OurClasses": "Nuestras Clases",
     "Description": "Desde Jiu-Jitsu hasta danza del vientre, ¡tenemos algo para todos!",
     "ViewAll": "Ver Todos",
@@ -23,7 +24,7 @@
       },
       "Brazilian Jiu-Jitsu": {
         "Name": "Jiu-Jitsu Brasileño",
-        "Description": ""
+        "Description": "Se centra en técnicas de lucha y suelo, construyendo fuerza, estrategia y resiliencia a través de habilidades prácticas de autodefensa."
       },
       "Yoga": {
         "Name": "Yoga",
@@ -84,7 +85,9 @@
     }
   },
   "TeacherSection": {
-    "OurTeachers": "Conoce a nuestros profesores de clase mundial",
+    "AllTeachers": "Todos los Profesores",
+    "OurTeachers": "NUESTROS PROFESORES",
+    "MeetTeachers": "Conoce a nuestros profesores de clase mundial",
     "Description": "Nuestros apasionados profesores vienen de todos los rincones del mundo, aportando su experiencia y amor por el movimiento para inspirar a nuestros jóvenes bailarines.",
     "ViewAll": "Ver Todos",
     "Teachers": {

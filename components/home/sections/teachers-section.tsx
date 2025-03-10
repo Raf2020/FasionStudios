@@ -22,12 +22,12 @@ const HomeTeachersSections = () => {
   return (
     <div className="w-full pb-8 px-6 sm:pb-20 sm:px-15">
       <div className="mb-8 sm:mb-20 pb-4 border-b-[1px] border-b-black">
-        <p className="text-black text-base font-medium">OUR TEACHERS</p>
+        <p className="text-black text-base font-medium">{t("OurTeachers")}</p>
       </div>
       <div className="flex w-full pb-8 sm:pb-20 flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="pb-2 text-black text-2xl sm:text-[52px] sm:leading-[72px]">
-            {t("OurTeachers")}
+            {t("MeetTeachers")}
           </p>
           <p className="max-w-xl text-black text-base leading-[30px]">
             {t("Description")}

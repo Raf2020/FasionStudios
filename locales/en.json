@@ -5,6 +5,7 @@
     "Description": "Join the dance revolution in Coín! Fusion Studios is opening soon, featuring a variety of classes from ballet to aerial silks."
   },
   "ClassSection": {
+    "AllClasses": "All Classes",
     "OurClasses": "OUR CLASSES",
     "Description": "From Jiu-Jitsu to belly dancing, we have something for everyone!",
     "ViewAll": "View All",
@@ -84,7 +85,9 @@
     }
   },
   "TeacherSection": {
-    "OurTeachers": "Meet our world class teachers",
+    "AllTeachers": "All Teachers",
+    "OurTeachers": "OUR TEACHERS",
+    "MeetTeachers": "Meet our world class teachers",
     "Description": "Our passionate teachers come from every corner of the globe, bringing their expertise and love for movement to inspire our young dancers.",
     "ViewAll": "View All",
     "Teachers": {

@@ -1,11 +1,12 @@
 "use client";
 
 // import { useCurrentUser } from "@/hooks/use-current-user";
-import { useGlobalStore } from "@/zustand/global-store";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useGlobalStore } from "@/zustand/global-store";
+import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
+import { usePathname as useLocalePathname } from "@/i18n/navigation";
 import { useEffect, useMemo, useState } from "react";
 
 const menuItems = [
@@ -24,6 +25,9 @@ const Header = () => {
 
   const pathName = usePathname();
   const headerHidden = useMemo(() => pathName.startsWith("/admin"), [pathName]);
+
+  const localePathName = useLocalePathname();
+  const locale = useLocale();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -79,6 +83,13 @@ const Header = () => {
             >
               {currentUser ? "Admin" : "Login"}
             </Link> */}
+            <Link
+              href={localePathName + window.location.hash}
+              locale={locale === "es" ? "en" : "es"}
+              className="text-white text-base font-semibold hover:text-gray-200"
+            >
+              {locale === "es" ? "EN" : "ES"}
+            </Link>
           </div>
           <Image
             className="w-8 sm:hidden cursor-pointer"
