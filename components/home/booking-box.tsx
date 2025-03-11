@@ -93,9 +93,9 @@ const BookingBox = () => {
   return (
     <Fragment>
       {boxShown ? (
-        <div className="fixed left-0 top-0 sm:static flex w-full h-full px-4 sm:px-0 items-center bg-black bg-opacity-50 sm:bg-transparent">
-          <div className="flex w-full max-w-[450px] py-4 px-4 sm:py-6 sm:px-6 flex-col gap-4 rounded-4xl bg-[#F1F6FE]">
-            <div className="flex w-full flex-col gap-2">
+        <div className="z-20 fixed left-0 top-0 sm:static flex w-full h-full px-4 sm:px-0 items-center bg-black bg-opacity-50 sm:bg-transparent">
+          <div className="relative flex w-full max-w-[450px] py-4 px-4 sm:py-6 sm:px-6 flex-col gap-4 rounded-4xl bg-[#F1F6FE]">
+            <div className="absolute right-4 flex w-full flex-col gap-2">
               <Image
                 className="sm:hidden self-end"
                 src="/images/icons/cancel.svg"
@@ -104,10 +104,10 @@ const BookingBox = () => {
                 alt="cancel"
                 onClick={() => setBoxShown(false)}
               />
-              <p className="text-black text-2xl font-medium leading-tight">
-                {t("JoinUs")}
-              </p>
             </div>
+            <p className="text-black text-2xl font-medium leading-tight">
+              {t("JoinUs")}
+            </p>
             <div className="flex w-full flex-col gap-4">
               <Input label={t("FullName")} value={name} setValue={setName} />
               <Input label={t("Email")} value={email} setValue={setEmail} />

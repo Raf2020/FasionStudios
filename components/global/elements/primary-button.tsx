@@ -23,7 +23,7 @@ const PrimaryButton = ({
       }}
       onClick={disabled ? undefined : onClick}
     >
-      <p className="text-center text-primary-purple text-xl font-semibold">
+      <p className="text-center text-primary-purple text-lg sm:text-xl font-semibold">
         {name}
       </p>
     </div>
