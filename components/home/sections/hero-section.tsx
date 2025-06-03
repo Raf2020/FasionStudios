@@ -2,7 +2,6 @@
 
 // import Image from "next/image";
 import { useTranslations } from "next-intl";
-import BookingBox from "../booking-box";
 import PrimaryButton from "@/components/global/elements/primary-button";
 import { useRouter } from "@/i18n/navigation";
 

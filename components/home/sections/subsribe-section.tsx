@@ -7,7 +7,6 @@ import { checkEmailFormat } from "@/shared/functions/global.functions";
 import { Subscriber } from "@/types/subscribe.type";
 import { useAlertStore } from "@/zustand/alert-store";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { useState } from "react";
 import YouTube from "react-youtube";
 
