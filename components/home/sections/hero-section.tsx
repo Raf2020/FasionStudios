@@ -3,8 +3,11 @@
 // import Image from "next/image";
 import { useTranslations } from "next-intl";
 import BookingBox from "../booking-box";
+import PrimaryButton from "@/components/global/elements/primary-button";
+import { useRouter } from "@/i18n/navigation";
 
 const HomeHeroSection = () => {
+  const router = useRouter();
   const t = useTranslations("HeroSection");
 
   return (
@@ -32,11 +35,18 @@ const HomeHeroSection = () => {
               {t("Description")}
               {/* Discover your rhythm with us. */}
             </p>
+            <div className="flex flex-col gap-5 mt-5">
+              <PrimaryButton
+                name={t("BookButton")}
+                onClick={() => router.push("/classes")}
+              />
+              <PrimaryButton
+                name={t("UpcomingButton")}
+                onClick={() => router.push("/classes")}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="sm:absolute right-15 bottom-16">
-        <BookingBox />
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import { useAlertStore } from "@/zustand/alert-store";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
+import YouTube from "react-youtube";
 
 const HomeSubscribeSection = () => {
   const t = useTranslations("SubscribeSection");
@@ -61,13 +62,19 @@ const HomeSubscribeSection = () => {
         </div>
       </div>
       <div className="flex w-full justify-center">
-        <Image
-          className="rounded-tl-4xl rounded-br-4xl"
-          src="/images/home/building.svg"
-          width={648}
-          height={510}
-          alt="building"
-        />
+        <div className="youtube-container">
+          <YouTube
+            videoId="t_eruZQCZHM"
+            opts={{
+              width: "100%",
+              height: "100%",
+              playerVars: {
+                autoplay: 0,
+                controls: 1,
+              },
+            }}
+          />
+        </div>
       </div>
     </div>
   );
