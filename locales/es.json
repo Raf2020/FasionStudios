@@ -86,6 +86,10 @@
       }
     }
   },
+  "EventsSection": {
+    "BannerTitle": "Nuestros Próximos Eventos",
+    "BannerSubtitle": "¡No te lo pierdas! Reserva tu lugar ahora."
+  },
   "TeacherSection": {
     "AllTeachers": "Todos los Profesores",
     "OurTeachers": "NUESTROS PROFESORES",

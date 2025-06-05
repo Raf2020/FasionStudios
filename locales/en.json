@@ -86,6 +86,10 @@
       }
     }
   },
+  "EventsSection": {
+    "BannerTitle": "Our Upcoming Events",
+    "BannerSubtitle": "Don't miss out! Reserve your spot now."
+  },
   "TeacherSection": {
     "AllTeachers": "All Teachers",
     "OurTeachers": "OUR TEACHERS",

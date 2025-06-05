@@ -3,7 +3,7 @@
 // import Image from "next/image";
 import { useTranslations } from "next-intl";
 import PrimaryButton from "@/components/global/elements/primary-button";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
 const HomeHeroSection = () => {
   const router = useRouter();
@@ -35,15 +35,21 @@ const HomeHeroSection = () => {
               {/* Discover your rhythm with us. */}
             </p>
             <div className="flex flex-col xs:flex-row items-center gap-4 mt-5">
-              <PrimaryButton
-                name={t("BookButton")}
-                onClick={() => router.push("/classes")}
-                textClassName="text-black text-sm text-center font-semibold"
-                className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
-              />
+              <Link
+                href="https://appfusionstudios.viday.es/"
+                passHref
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PrimaryButton
+                  name={t("BookButton")}
+                  textClassName="text-black text-sm text-center font-semibold"
+                  className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
+                />
+              </Link>
               <PrimaryButton
                 name={t("UpcomingButton")}
-                onClick={() => router.push("/classes")}
+                onClick={() => router.push("/events")}
                 textClassName="text-black text-sm text-center font-semibold"
                 className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
               />

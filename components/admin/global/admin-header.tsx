@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const menuItems = [
   { name: "Bookings", href: "/admin/bookings" },
   { name: "Subscribers", href: "/admin/subscribers" },
+  { name: "Events", href: "/admin/events" },
 ];
 
 const AdminHeader = () => {
