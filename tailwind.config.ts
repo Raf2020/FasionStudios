@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      screens: {
+        xs: "480px", // or whatever min-width you want
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",

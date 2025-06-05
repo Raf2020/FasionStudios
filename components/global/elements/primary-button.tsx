@@ -4,16 +4,23 @@ const PrimaryButton = ({
   lowHeight,
   disabled,
   onClick,
+  className,
+  textClassName,
 }: {
   name: string;
   fullWidth?: boolean;
   lowHeight?: boolean;
   disabled?: boolean;
   onClick?: () => void;
+  className?: string;
+  textClassName?: string;
 }) => {
   return (
     <div
-      className="py-4 sm:py-5 px-12 rounded-full bg-primary-blue cursor-pointer"
+      className={
+        className ??
+        "py-4 sm:py-5 px-12 rounded-full bg-primary-blue cursor-pointer"
+      }
       style={{
         width: fullWidth ? "100%" : "fit-content",
         paddingTop: lowHeight ? "8px" : undefined,
@@ -23,7 +30,12 @@ const PrimaryButton = ({
       }}
       onClick={disabled ? undefined : onClick}
     >
-      <p className="text-center text-primary-purple text-lg sm:text-xl font-semibold">
+      <p
+        className={
+          textClassName ??
+          "text-center text-primary-purple text-lg sm:text-xl font-semibold"
+        }
+      >
         {name}
       </p>
     </div>

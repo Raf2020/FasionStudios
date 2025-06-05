@@ -34,14 +34,18 @@ const HomeHeroSection = () => {
               {t("Description")}
               {/* Discover your rhythm with us. */}
             </p>
-            <div className="flex flex-col gap-5 mt-5">
+            <div className="flex flex-col xs:flex-row items-center gap-4 mt-5">
               <PrimaryButton
                 name={t("BookButton")}
                 onClick={() => router.push("/classes")}
+                textClassName="text-black text-sm text-center font-semibold"
+                className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
               />
               <PrimaryButton
                 name={t("UpcomingButton")}
                 onClick={() => router.push("/classes")}
+                textClassName="text-black text-sm text-center font-semibold"
+                className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
               />
             </div>
           </div>
