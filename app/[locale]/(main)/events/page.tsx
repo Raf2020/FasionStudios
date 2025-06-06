@@ -1,88 +1,102 @@
 "use client";
 
-import EventThumb from "@/components/events/event-thumb";
-import { useTranslations } from "next-intl";
+import React, { useEffect, useState } from "react";
+import { Event } from "@/types/event.types";
+import Link from "next/link";
+import { getAllEvents } from "@/actions/event/event.db";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
+import ImageElement from "@/components/global/image-element";
 
-type Event = {
-  id: string;
-  name: string;
-  description: string;
-  date: number;
-  coverImageUrl: string;
-  imageUrls: string[];
-  availableSpots: number;
-  prices: {
-    price: number;
-    label: string;
-  }[];
-  reservations: {
-    paidSpots: number;
-  }[];
-};
+const CustomerEventsPage = () => {
+    const [events, setEvents] = useState<Event[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [filter, setFilter] = useState<"upcoming" | "past">("upcoming");
 
-const SAMPLE_EVENTS: Event[] = [
-  {
-    id: "event-1",
-    name: "Bachata Social Night",
-    description:
-      "An energetic evening of Bachata dancing with DJs and free drinks.",
-    date: new Date().getTime() + 86400000, // 1 day from now
-    coverImageUrl: "/images/sample-event-1.jpg",
-    imageUrls: ["/images/sample-event-1.jpg"],
-    availableSpots: 30,
-    prices: [
-      { price: 10, label: "General" },
-      { price: 15, label: "VIP" },
-    ],
-    reservations: [{ paidSpots: 10 }, { paidSpots: 5 }],
-  },
-  {
-    id: "event-2",
-    name: "Salsa Summer Jam",
-    description:
-      "A night of salsa under the stars. Outdoor venue with food stalls.",
-    date: new Date().getTime() + 172800000, // 2 days from now
-    coverImageUrl: "/images/sample-event-2.jpg",
-    imageUrls: ["/images/sample-event-2.jpg"],
-    availableSpots: 50,
-    prices: [
-      { price: 12, label: "Standard" },
-      { price: 18, label: "Premium" },
-    ],
-    reservations: [{ paidSpots: 20 }],
-  },
-];
+    useEffect(() => {
+        const fetch = async () => {
+            setLoading(true);
+            const result = await getAllEvents(filter);
+            setEvents(result);
+            setLoading(false);
+        };
+        fetch();
+    }, [filter]);
 
-// Static banner data
-const STATIC_BANNER_IMAGE = "/images/home/hero.svg";
+    return (
+        <div className="min-h-screen bg-white text-black px-4 sm:px-8 py-10 mt-20 flex-col flex items-center">
+            <div className={'container px-4 sm:px-6 lg:px-8 py-10'}>
+                <div className="text-center">
+                    <h1 className="text-4xl sm:text-5xl font-bold text-cyan-700">Events</h1>
+                    <p className="text-gray-600 mt-2">Book your spot for exciting performances and classes</p>
+                </div>
 
-const EventsPage = () => {
-  const t = useTranslations("EventsSection");
+                <div className="mt-8 flex justify-center">
+                    <Tabs value={filter} onValueChange={(val) => setFilter(val as "upcoming" | "past") }>
+                        <TabsList className="bg-cyan-100 border border-cyan-300 rounded-full">
+                            <TabsTrigger value="upcoming">Upcoming Events</TabsTrigger>
+                            <TabsTrigger value="past">Past Events</TabsTrigger>
+                        </TabsList>
+                    </Tabs>
+                </div>
 
-  return (
-    <div className="w-full">
-      <div className="w-full h-[240px] sm:h-[430px] relative overflow-hidden">
-        <div
-          className="w-full h-full bg-cover bg-center"
-          style={{ backgroundImage: `url('${STATIC_BANNER_IMAGE}')` }}
-        />
-        <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center px-4">
-          <p className="text-white text-2xl sm:text-5xl font-medium">
-            {t("BannerTitle")}
-          </p>
-          <p className="pb-8 text-white text-center text-lg sm:text-xl">
-            {t("BannerSubtitle")}
-          </p>
+                <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {loading ? (
+                        Array.from({ length: 6 }).map((_, idx) => (
+                            <Card key={idx} className="border border-gray-200 shadow-sm">
+                                <Skeleton className="w-full h-48" />
+                                <CardContent className="p-4 space-y-3">
+                                    <Skeleton className="h-6 w-3/4" />
+                                    <Skeleton className="h-4 w-1/2" />
+                                    <Skeleton className="h-4 w-full" />
+                                    <Skeleton className="h-4 w-2/3" />
+                                    <Skeleton className="h-10 w-32 mt-2" />
+                                </CardContent>
+                            </Card>
+                        ))
+                    ) : events.length === 0 ? (
+                        <div className="col-span-full text-center text-gray-500">No events to display.</div>
+                    ) : (
+                        events.map((event) => (
+                            <Card
+                                key={event.id}
+                                className="bg-white border border-gray-200 overflow-hidden shadow-md"
+                            >
+
+                                <ImageElement
+                                    imageUrl={event.coverImageUrl || "/placeholder.svg"}
+                                    alt={event.name}
+                                    width={500}
+                                    height={192}
+                                    className="w-full h-48 object-cover"
+                                    unoptimized
+                                />
+                                <CardContent className="p-4">
+                                    <h3 className="text-xl font-semibold text-cyan-700">{event.name}</h3>
+                                    <p className="text-sm text-gray-500 mt-1">
+                                        {new Date(event.date).toLocaleDateString(undefined, {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        })}
+                                    </p>
+                                    <p className="text-gray-600 text-sm mt-2 line-clamp-2">{event.description}</p>
+                                    <Button asChild className="mt-4 bg-cyan-600 hover:bg-cyan-700">
+                                        <Link href={event.url} target="_blank">
+                                            Buy Tickets
+                                        </Link>
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        ))
+                    )}
+                </div>
+            </div>
         </div>
-      </div>
-
-      <div className="flex w-full py-8 px-6 sm:py-24 sm:px-40 flex-col gap-8 sm:gap-12">
-        {SAMPLE_EVENTS.map((event) => (
-          <EventThumb key={event.id} event={event} loading={false} />
-        ))}
-      </div>
-    </div>
-  );
+    );
 };
 
-export default EventsPage;
+export default CustomerEventsPage;

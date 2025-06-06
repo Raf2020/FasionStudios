@@ -1,135 +1,171 @@
-import { Event, Food, FoodWithFile, GalleryImage } from "@/types/event.types";
-import { Reservation } from "@/types/reserve.types";
-import { uploadStorageImage, deleteStorageFile } from "../firebase/storage";
+"use server";
+import { Event } from "@/types/event.types";
+import { deleteStorageFile } from "../firebase/storage";
 import { addEvent, updateEvent, deleteEventById } from "./event.db";
+import {handleOptionalImageUpload} from "@/actions/image/image.action";
+import {sanitizeString} from "@/lib/util";
 
-// CREATE
-export const processEventCreation = async (
-  event: Event,
-  coverImage: File | undefined,
-  foodRaws: FoodWithFile[],
-  galleryImages: GalleryImage[]
-) => {
-  const folderPath = `events/${event.name}-${Date.now()}`;
+/**
+ * Create a new event using FormData and upload cover image if provided.
+ */
+export const processEventCreation = async (formData: FormData) => {
+  try {
+    console.log("[CREATE] Starting event creation...");
 
-  const coverImageUrl = coverImage
-    ? await uploadStorageImage(
-        coverImage,
-        `${folderPath}/cover-${coverImage.name}`
-      )
-    : event.coverImageUrl;
+    const name = formData.get("name") as string;
+    const date = new Date(formData.get("date") as string).getTime();
+    const description = formData.get("description") as string;
+    const price = parseFloat(formData.get("price") as string);
+    const url = formData.get("url") as string;
+    const active = formData.get("active") === "true";
+    const image = formData.get("image") as File | null;
 
-  const imageUrls = await Promise.all(
-    galleryImages.map((g) =>
-      uploadStorageImage(g.file!, `${folderPath}/gallery-${g.file!.name}`)
-    )
-  );
+    console.log("[CREATE] Parsed form data:", { name, date, description, price, url, active });
 
-  if (imageUrls.includes("")) {
-    return { success: false, errorMessage: "Error uploading gallery images" };
+    let coverImageUrl = "";
+    if (image && image.size > 0) {
+      const folderPath = `events/${sanitizeString(name)}-${Date.now()}`;
+      const uploadResult = await handleOptionalImageUpload(image, folderPath, "cover");
+
+      if (uploadResult.error) {
+        return {
+          success: false,
+          errorMessage: uploadResult.error || "Failed to upload cover image",
+        };
+      }
+
+      coverImageUrl = uploadResult.url;
+      console.log("[CREATE] Uploaded cover image:", coverImageUrl);
+    } else {
+      console.log("[CREATE] No image uploaded. Proceeding without cover image.");
+    }
+
+    const newEvent: Omit<Event, "id"> = {
+      name,
+      date,
+      description,
+      price,
+      url,
+      active,
+      coverImageUrl,
+    };
+
+    console.log("[CREATE] Saving event to Firestore:", newEvent);
+    const result = await addEvent(newEvent);
+
+    if (result.success) {
+      console.log("[CREATE] Event successfully saved.");
+    } else {
+      console.error("[CREATE] Firestore save failed.");
+    }
+
+    return {
+      ...result,
+      errorMessage: result.success ? undefined : "Error saving event to Firestore",
+    };
+  } catch (error) {
+    console.error("[CREATE] Unexpected error:", error);
+    return { success: false, errorMessage: "Unexpected error during event creation" };
   }
-
-  const foods: Food[] = await Promise.all(
-    foodRaws.map(async (f) => ({
-      name: f.name,
-      imageUrl: await uploadStorageImage(
-        f.imageFile!,
-        `${folderPath}/food-${f.imageFile!.name}`
-      ),
-    }))
-  );
-
-  if (foods.some((f) => f.imageUrl === "")) {
-    return { success: false, errorMessage: "Error uploading food images" };
-  }
-
-  const result = await addEvent({ ...event, coverImageUrl, imageUrls, foods });
-
-  return {
-    ...result,
-    errorMessage: result.success
-      ? undefined
-      : "Error saving event to Firestore",
-  };
 };
 
-// UPDATE
+/**
+ * Update an existing event using FormData. Replaces cover image if a new one is uploaded.
+ */
 export const processEventUpdate = async (
-  event: Event,
-  coverImage: File | undefined,
-  foodRaws: FoodWithFile[],
-  galleryImages: GalleryImage[],
-  directoryName?: string
+    event: Event,
+    formData: FormData,
+    directoryName?: string
 ) => {
-  const folderPath = `events/${directoryName ?? `${event.name}-${Date.now()}`}`;
+  try {
+    console.log("[UPDATE] Starting update for event:", event.id);
 
-  if (coverImage && event.coverImageUrl)
-    await deleteStorageFile(event.coverImageUrl);
-  const coverImageUrl = coverImage
-    ? await uploadStorageImage(
-        coverImage,
-        `${folderPath}/cover-${coverImage.name}`
-      )
-    : event.coverImageUrl;
+    const name = formData.get("name") as string;
+    const date = new Date(formData.get("date") as string).getTime();
+    const description = formData.get("description") as string;
+    const price = parseFloat(formData.get("price") as string);
+    const url = formData.get("url") as string;
+    const active = formData.get("active") === "true";
+    const image = formData.get("image") as File | null;
 
-  await Promise.all(
-    event.imageUrls.map(async (url) => {
-      if (!galleryImages.find((g) => g.url === url))
-        await deleteStorageFile(url);
-    })
-  );
-  const imageUrls = await Promise.all(
-    galleryImages.map((g) =>
-      g.file
-        ? uploadStorageImage(g.file, `${folderPath}/gallery-${g.file.name}`)
-        : g.url
-    )
-  );
+    let coverImageUrl = event.coverImageUrl;
 
-  await Promise.all(
-    event.foods.map(async (f) => {
-      if (!foodRaws.find((r) => r.imageUrl === f.imageUrl))
-        await deleteStorageFile(f.imageUrl);
-    })
-  );
-  const foods: Food[] = await Promise.all(
-    foodRaws.map(async (f) => ({
-      name: f.name,
-      imageUrl: f.imageFile
-        ? await uploadStorageImage(
-            f.imageFile,
-            `${folderPath}/food-${f.imageFile!.name}`
-          )
-        : f.imageUrl,
-    }))
-  );
+    if (image && image.size > 0) {
+      console.log("[UPDATE] Replacing cover image...");
+      if (coverImageUrl) {
+        await deleteStorageFile(coverImageUrl);
+      }
 
-  const { reservations, ...cleanEvent } = {
-    ...event,
-    coverImageUrl,
-    foods,
-    imageUrls,
-  };
+      const folderPath = `events/${directoryName ?? `${event.name}-${Date.now()}`}`;
+      const uploadResult = await handleOptionalImageUpload(image, folderPath, "cover");
 
-  const result = await updateEvent(cleanEvent);
+      if (uploadResult.error || !uploadResult.url) {
+        return {
+          success: false,
+          errorMessage: uploadResult.error || "Failed to upload new cover image",
+        };
+      }
 
-  return {
-    success: result.success,
-    updatedEvent: cleanEvent,
-    errorMessage: result.success
-      ? undefined
-      : "Error updating event in Firestore",
-  };
+      coverImageUrl = uploadResult.url;
+      console.log("[UPDATE] New cover image uploaded:", coverImageUrl);
+    } else {
+      console.log("[UPDATE] No new image uploaded. Keeping existing image.");
+    }
+
+    const updatedEvent: Event = {
+      id: event.id,
+      name,
+      date,
+      description,
+      price,
+      url,
+      active,
+      coverImageUrl,
+    };
+
+    console.log("[UPDATE] Saving updated event:", updatedEvent);
+    const result = await updateEvent(updatedEvent);
+
+    if (result.success) {
+      console.log("[UPDATE] Event successfully updated.");
+    } else {
+      console.error("[UPDATE] Firestore update failed.");
+    }
+
+    return {
+      success: result.success,
+      updatedEvent,
+      errorMessage: result.success ? undefined : "Error updating event in Firestore",
+    };
+  } catch (error) {
+    console.error("[UPDATE] Unexpected error:", error);
+    return { success: false, errorMessage: "Unexpected error during event update" };
+  }
 };
 
-// DELETE
+/**
+ * Delete the event and its cover image from Firebase Storage and Firestore.
+ */
 export const processEventDeletion = async (event: Event) => {
-  if (event.coverImageUrl) await deleteStorageFile(event.coverImageUrl);
-  await Promise.all(event.imageUrls.map(deleteStorageFile));
-  await Promise.all(event.foods.map((f) => deleteStorageFile(f.imageUrl)));
-  return await deleteEventById(event.id);
-};
+  try {
+    console.log("[DELETE] Deleting event:", event.id);
 
-// TOTAL
-export const getTotalAmount = (reservations: Reservation[]) =>
-  reservations.reduce((sum, r) => sum + r.paymentInfo.totalPrice, 0);
+    if (event.coverImageUrl) {
+      console.log("[DELETE] Deleting cover image...");
+      await deleteStorageFile(event.coverImageUrl);
+    }
+
+    const result = await deleteEventById(event.id);
+
+    if (result.success) {
+      console.log("[DELETE] Event successfully deleted.");
+    } else {
+      console.error("[DELETE] Failed to delete event from Firestore.");
+    }
+
+    return result;
+  } catch (error) {
+    console.error("[DELETE] Unexpected error:", error);
+    return { success: false };
+  }
+};

@@ -1,6 +1,6 @@
+"use server"
 import {
   addDoc,
-  arrayUnion,
   collection,
   deleteDoc,
   doc,
@@ -13,85 +13,96 @@ import {
 } from "firebase/firestore";
 import db from "@/lib/firestore";
 import { Event } from "@/types/event.types";
-import { Reservation } from "@/types/reserve.types";
 
-// Basic CRUD
-export const addEvent = async (event: Event) => {
+// Add Event
+export const addEvent = async (event: Omit<Event, "id">) => {
   try {
-    const collectionRef = collection(db, "events");
-    await addDoc(collectionRef, event);
-    return { success: true };
-  } catch {
+    console.log("[DB][ADD] Creating new event:", event.name);
+    const docRef = await addDoc(collection(db, "events"), event);
+    console.log("[DB][ADD] Event created with ID:", docRef.id);
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    console.error("[DB][ADD] Error creating event:", error);
     return { success: false };
   }
 };
 
-export const updateEvent = async (event: Omit<Event, "reservations">) => {
+// Update Event
+export const updateEvent = async (event: Event) => {
   try {
+    console.log("[DB][UPDATE] Updating event:", event.id);
     const docRef = doc(db, "events", event.id);
-    await updateDoc(docRef, event);
+    const { id, ...eventData } = event;
+    await updateDoc(docRef, eventData);
+    console.log("[DB][UPDATE] Event updated successfully:", event.id);
     return { success: true };
-  } catch {
+  } catch (error) {
+    console.error("[DB][UPDATE] Error updating event:", event.id, error);
     return { success: false };
   }
 };
 
+// Delete Event
 export const deleteEventById = async (eventId: string) => {
   try {
+    console.log("[DB][DELETE] Deleting event:", eventId);
     await deleteDoc(doc(db, "events", eventId));
+    console.log("[DB][DELETE] Event deleted successfully:", eventId);
     return { success: true };
-  } catch {
+  } catch (error) {
+    console.error("[DB][DELETE] Error deleting event:", eventId, error);
     return { success: false };
   }
 };
 
-export const getEventById = async (eventId: string) => {
+// Get Single Event
+export const getEventById = async (eventId: string): Promise<Event | undefined> => {
   try {
+    console.log("[DB][GET] Fetching event by ID:", eventId);
     const snap = await getDoc(doc(db, "events", eventId));
-    return snap.exists() ? { ...snap.data(), id: eventId } : undefined;
-  } catch {
+    if (snap.exists()) {
+      console.log("[DB][GET] Event found:", eventId);
+      return { ...(snap.data() as Event), id: eventId };
+    } else {
+      console.warn("[DB][GET] Event not found:", eventId);
+      return undefined;
+    }
+  } catch (error) {
+    console.error("[DB][GET] Error fetching event:", eventId, error);
     return undefined;
   }
 };
 
-export const getAllEvents = async (type?: "past" | "upcoming") => {
+// Get All Events
+export const getAllEvents = async (type?: "past" | "upcoming"): Promise<Event[]> => {
   try {
+    console.log("[DB][LIST] Fetching all events", type ? `with filter: ${type}` : "");
     const now = Date.now();
     const oneDay = 24 * 60 * 60 * 1000;
     const collectionRef = collection(db, "events");
 
     const baseQuery =
-      type === "past"
-        ? query(
-            collectionRef,
-            where("date", "<", now - oneDay),
-            orderBy("date", "asc")
-          )
-        : type === "upcoming"
-        ? query(
-            collectionRef,
-            where("date", ">=", now - oneDay),
-            orderBy("date", "asc")
-          )
-        : query(collectionRef, orderBy("date", "asc"));
+        type === "past"
+            ? query(
+                collectionRef,
+                where("date", "<", now - oneDay),
+                orderBy("date", "asc")
+            )
+            : type === "upcoming"
+                ? query(
+                    collectionRef,
+                    where("date", ">=", now - oneDay),
+                    orderBy("date", "asc")
+                )
+                : query(collectionRef, orderBy("date", "asc"));
 
     const snapshot = await getDocs(baseQuery);
-    return snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-  } catch {
-    return [];
-  }
-};
+    const results = snapshot.docs.map((doc) => ({ ...(doc.data() as Event), id: doc.id }));
 
-export const addEventReservation = async (
-  eventId: string,
-  reservation: Reservation
-) => {
-  try {
-    await updateDoc(doc(db, "events", eventId), {
-      reservations: arrayUnion(reservation),
-    });
-    return { success: true };
-  } catch {
-    return { success: false };
+    console.log(`[DB][LIST] Found ${results.length} event(s).`);
+    return results;
+  } catch (error) {
+    console.error("[DB][LIST] Error fetching events:", error);
+    return [];
   }
 };

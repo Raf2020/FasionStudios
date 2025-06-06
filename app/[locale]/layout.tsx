@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
+import {Toaster} from "react-hot-toast";
 
 export const metadata = appMetadata;
 
@@ -36,6 +37,7 @@ export default async function RootLayout({
             {children}
           </NextIntlClientProvider>
         </SessionProvider>
+       <Toaster/>
       </body>
     </html>
   );
