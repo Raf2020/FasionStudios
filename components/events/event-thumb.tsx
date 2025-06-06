@@ -56,6 +56,7 @@ const EventThumb = ({
             imageUrl={
               event.coverImageUrl ? event.coverImageUrl : DefaultHeroImageUrl
             }
+            alt={'Event Cover Image'}
           />
         )}
       </div>
