@@ -2,7 +2,9 @@
   "HeroSection": {
     "GetReadyTo": "¡Prepárate para ",
     "Move": "Moverte!",
-    "Description": "¡Únete a la revolución del baile en Coín! Fusion Studios abrirá pronto, ofreciendo una variedad de clases desde ballet hasta telas aéreas."
+    "Description": "¡Únete a la revolución del baile en Coín! Fusion Studios abrirá pronto, ofreciendo una variedad de clases desde ballet hasta telas aéreas.",
+    "BookButton": "Reserva tu plaza gratis",
+    "UpcomingButton": "Próximos eventos"
   },
   "ClassSection": {
     "AllClasses": "Todas las Clases",
@@ -83,6 +85,10 @@
         "Description": "Crea música rítmica a través de movimientos precisos"
       }
     }
+  },
+  "EventsSection": {
+    "BannerTitle": "Nuestros Próximos Eventos",
+    "BannerSubtitle": "¡No te lo pierdas! Reserva tu lugar ahora."
   },
   "TeacherSection": {
     "AllTeachers": "Todos los Profesores",

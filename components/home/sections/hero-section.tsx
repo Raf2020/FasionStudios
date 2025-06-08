@@ -2,9 +2,11 @@
 
 // import Image from "next/image";
 import { useTranslations } from "next-intl";
-import BookingBox from "../booking-box";
+import PrimaryButton from "@/components/global/elements/primary-button";
+import { Link, useRouter } from "@/i18n/navigation";
 
 const HomeHeroSection = () => {
+  const router = useRouter();
   const t = useTranslations("HeroSection");
 
   return (
@@ -32,11 +34,28 @@ const HomeHeroSection = () => {
               {t("Description")}
               {/* Discover your rhythm with us. */}
             </p>
+            <div className="flex flex-col xs:flex-row items-center gap-4 mt-5">
+              <Link
+                href="https://appfusionstudios.viday.es/"
+                passHref
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <PrimaryButton
+                  name={t("BookButton")}
+                  textClassName="text-black text-sm text-center font-semibold"
+                  className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
+                />
+              </Link>
+              <PrimaryButton
+                name={t("UpcomingButton")}
+                onClick={() => router.push("/events")}
+                textClassName="text-black text-sm text-center font-semibold"
+                className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className="sm:absolute right-15 bottom-16">
-        <BookingBox />
       </div>
     </div>
   );
