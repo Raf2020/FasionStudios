@@ -8,7 +8,7 @@ import { Subscriber } from "@/types/subscribe.type";
 import { useAlertStore } from "@/zustand/alert-store";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import YouTube from "react-youtube";
+import VideoCarouselDisplay from "@/components/home/sections/video-carousel-display";
 
 const HomeSubscribeSection = () => {
   const t = useTranslations("SubscribeSection");
@@ -61,19 +61,7 @@ const HomeSubscribeSection = () => {
         </div>
       </div>
       <div className="flex w-full justify-center">
-        <div className="youtube-container">
-          <YouTube
-            videoId="t_eruZQCZHM"
-            opts={{
-              width: "100%",
-              height: "100%",
-              playerVars: {
-                autoplay: 0,
-                controls: 1,
-              },
-            }}
-          />
-        </div>
+        <VideoCarouselDisplay />
       </div>
     </div>
   );

@@ -37,19 +37,19 @@ const HomeClassesSection = () => {
       </div>
 
       <div className="sm:-mt-[250px] w-full pt-8 px-6 sm:pt-0 sm:px-15">
-        <SwiperWrapper slidesPerView={mobileMode ? 1 : 4}>
+        <SwiperWrapper
+            slidesPerView={mobileMode ? 1 : 3.2}
+        >
           {classes.map((cls) => (
-            <SwiperSlide key={cls.name} className="pb-10">
-              <div className="w-full sm:px-4">
+              <SwiperSlide key={cls.name} className="!w-full">
                 <ClassThumb
-                  classData={{
-                    ...cls,
-                    name: t(`Classes.${cls.name}.Name`),
-                    description: t(`Classes.${cls.name}.Description`),
-                  }}
+                    classData={{
+                      ...cls,
+                      name: t(`Classes.${cls.name}.Name`),
+                      description: t(`Classes.${cls.name}.Description`),
+                    }}
                 />
-              </div>
-            </SwiperSlide>
+              </SwiperSlide>
           ))}
           <SwiperAutoSlider slideCount={mobileMode ? 18 : 15} />
         </SwiperWrapper>
