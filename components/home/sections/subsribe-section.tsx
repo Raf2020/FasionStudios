@@ -8,7 +8,6 @@ import { Subscriber } from "@/types/subscribe.type";
 import { useAlertStore } from "@/zustand/alert-store";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import YouTube from "react-youtube";
 import VideoCarouselDisplay from "@/components/home/sections/video-carousel-display";
 
 const HomeSubscribeSection = () => {
