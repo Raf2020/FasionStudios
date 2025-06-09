@@ -20,7 +20,7 @@ export default async function RootLayout({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full mb-16 md:mb-0">
       <Header />
       {children}
       <Footer />

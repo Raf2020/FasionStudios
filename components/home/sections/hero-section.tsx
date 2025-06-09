@@ -34,19 +34,29 @@ const HomeHeroSection = () => {
               {t("Description")}
               {/* Discover your rhythm with us. */}
             </p>
+
             <div className="flex flex-col xs:flex-row items-center gap-4 mt-5">
-              <Link
-                href="https://appfusionstudios.viday.es/"
-                passHref
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <PrimaryButton
+              {/* 🟢 Mobile Sticky Book Button */}
+              <div className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-white border-t border-gray-200 shadow-lg p-2">
+                <Link
+                    href="https://appfusionstudios.viday.es/"
+                    passHref
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                  <PrimaryButton
+                      fullWidth
+                      name={t("BookButton")}
+                      textClassName="text-black font-semibold text-sm text-center font-semibold"
+                      className="py-4 rounded-md bg-primary-blue cursor-pointer hover:bg-primary-blue/90 text-white"
+                  />
+                </Link>
+              </div>
+              <PrimaryButton
                   name={t("BookButton")}
                   textClassName="text-black text-sm text-center font-semibold"
-                  className="!w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
-                />
-              </Link>
+                  className="hidden md:block  !w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
+              />
               <PrimaryButton
                 name={t("UpcomingButton")}
                 onClick={() => router.push("/events")}

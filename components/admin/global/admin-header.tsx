@@ -8,6 +8,7 @@ const menuItems = [
   { name: "Bookings", href: "/admin/bookings" },
   { name: "Subscribers", href: "/admin/subscribers" },
   { name: "Events", href: "/admin/events" },
+  { name: "Video Carousel", href: "/admin/video-carousel" },
 ];
 
 const AdminHeader = () => {
