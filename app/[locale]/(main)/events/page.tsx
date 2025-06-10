@@ -28,7 +28,7 @@ const CustomerEventsPage = () => {
     }, [filter]);
 
     return (
-        <div className="min-h-screen bg-white text-black px-4 sm:px-8 py-10 mt-20 flex-col flex items-center">
+        <div className="min-h-screen container mx-auto bg-white text-black px-4 sm:px-8 py-10 mt-20 flex-col flex items-center">
             <div className={'container px-4 sm:px-6 lg:px-8 py-10'}>
                 <div className="text-center">
                     <h1 className="text-4xl sm:text-5xl font-bold text-cyan-700">{t("Title")}</h1>
@@ -44,7 +44,7 @@ const CustomerEventsPage = () => {
                     </Tabs>
                 </div>
 
-                <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                <div className="mt-10 grid gap-6">
                     {loading ? (
                         Array.from({ length: 6 }).map((_, idx) => (
                             <Card key={idx} className="border border-gray-200 shadow-sm">
