@@ -34,6 +34,7 @@ const HomeTeachersSections = () => {
           </p>
         </div>
         <PrimaryButton
+            textClassName="text-sm text-center font-semibold"
           name={t("ViewAll")}
           onClick={() => router.push("/teachers")}
         />

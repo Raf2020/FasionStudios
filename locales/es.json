@@ -135,8 +135,8 @@
     }
   },
   "SubscribeSection": {
-    "Title": "¡Prepárate, Coín! Fusion Studios está casi aquí!",
-    "Description": "Fusion Studio es un espacio cuidadosamente diseñado dedicado a llevar el arte y el movimiento al corazón de la comunidad. Ubicado en Coín, tiene como objetivo inspirar a los residentes y a aquellos de las áreas circundantes a abrazar la danza y el movimiento como parte de su vida diaria. En su esencia, Fusion Studio fomenta la conexión, alienta un estilo de vida activo y despierta el interés en la expresión creativa entre las generaciones más jóvenes. Desde danza hasta artes circenses y artes marciales, el estudio ofrece una amplia gama de actividades, asegurando que haya algo para todos. Las familias están cordialmente invitadas a unirse y descubrir la alegría de moverse juntas.",
+    "Title": "Muévete juntos, crece juntos.",
+    "Description": "Fusion Studios llega a Coín con un espacio único – donde los padres sudan mientras los niños saltan, y donde disciplina y diversión se unen. Con 15+ disciplinas (desde artes circenses hasta yoga), hacemos el movimiento accesible para todas las edades y niveles. Tu primera clase es cortesía nuestra – descubre cómo el movimiento nos conecta.",
     "SubscribeNow": "¡Suscríbete Ahora"
   },
   "FooterSection": {
@@ -172,5 +172,16 @@
     "Style": "Estilos de Danza Preferidos",
     "Age": "Grupo de Edad de Interés",
     "Book": "RESERVAR MI LUGAR GRATIS"
+  },
+  "EventsPage" : {
+    "Title": "Eventos",
+    "Description": "Reserva tu lugar para actuaciones y clases emocionantes",
+    "ReserveYourSpot" : "Reserva tu lugar",
+    "UpcomingEvents": "Próximos Eventos",
+    "PastEvents": "Eventos Pasados",
+    "perPerson": "por persona",
+    "AvailableSpots": "Plazas disponibles",
+    "date": "fecha"
+
   }
 }

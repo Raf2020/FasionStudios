@@ -32,7 +32,7 @@ const Footer = () => {
   if (footerHidden) return null;
 
   return (
-      <footer className="w-full bg-[#1E2662] text-white px-6 pt-12 pb-8 sm:px-20 sm:pt-20 sm:pb-12">
+      <footer className="w-full bg-[#1E2662] text-white px-6 pt-12 pb-8 sm:px-20 sm:pt-20 sm:pb-12 hidden md:block">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between">
           <Link href="/#home">
             <Image

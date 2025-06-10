@@ -8,23 +8,34 @@ import {sanitizeString} from "@/lib/util";
 /**
  * Create a new event using FormData and upload cover image if provided.
  */
+
 export const processEventCreation = async (formData: FormData) => {
   try {
     console.log("[CREATE] Starting event creation...");
 
-    const name = formData.get("name") as string;
+    // Multilingual fields
+    const name = {
+      en: formData.get("name.en") as string,
+      es: formData.get("name.es") as string,
+    };
+
+    const description = {
+      en: formData.get("description.en") as string,
+      es: formData.get("description.es") as string,
+    };
+
     const date = new Date(formData.get("date") as string).getTime();
-    const description = formData.get("description") as string;
     const price = parseFloat(formData.get("price") as string);
     const url = formData.get("url") as string;
     const active = formData.get("active") === "true";
     const image = formData.get("image") as File | null;
 
-    console.log("[CREATE] Parsed form data:", { name, date, description, price, url, active });
+    console.log("[CREATE] Parsed form data:", { name, description, date, price, url, active });
 
     let coverImageUrl = "";
+
     if (image && image.size > 0) {
-      const folderPath = `events/${sanitizeString(name)}-${Date.now()}`;
+      const folderPath = `events/${sanitizeString(name.en)}-${Date.now()}`;
       const uploadResult = await handleOptionalImageUpload(image, folderPath, "cover");
 
       if (uploadResult.error) {
@@ -42,8 +53,8 @@ export const processEventCreation = async (formData: FormData) => {
 
     const newEvent: Omit<Event, "id"> = {
       name,
-      date,
       description,
+      date,
       price,
       url,
       active,
@@ -68,7 +79,6 @@ export const processEventCreation = async (formData: FormData) => {
     return { success: false, errorMessage: "Unexpected error during event creation" };
   }
 };
-
 /**
  * Update an existing event using FormData. Replaces cover image if a new one is uploaded.
  */
@@ -80,9 +90,18 @@ export const processEventUpdate = async (
   try {
     console.log("[UPDATE] Starting update for event:", event.id);
 
-    const name = formData.get("name") as string;
+    // ✅ Parse multilingual name and description
+    const name = {
+      en: formData.get("name.en") as string,
+      es: formData.get("name.es") as string,
+    };
+
+    const description = {
+      en: formData.get("description.en") as string,
+      es: formData.get("description.es") as string,
+    };
+
     const date = new Date(formData.get("date") as string).getTime();
-    const description = formData.get("description") as string;
     const price = parseFloat(formData.get("price") as string);
     const url = formData.get("url") as string;
     const active = formData.get("active") === "true";
@@ -90,13 +109,14 @@ export const processEventUpdate = async (
 
     let coverImageUrl = event.coverImageUrl;
 
+    // ✅ Replace cover image if new image is uploaded
     if (image && image.size > 0) {
       console.log("[UPDATE] Replacing cover image...");
       if (coverImageUrl) {
         await deleteStorageFile(coverImageUrl);
       }
 
-      const folderPath = `events/${directoryName ?? `${event.name}-${Date.now()}`}`;
+      const folderPath = `events/${directoryName ?? `${sanitizeString(name.en)}-${Date.now()}`}`;
       const uploadResult = await handleOptionalImageUpload(image, folderPath, "cover");
 
       if (uploadResult.error || !uploadResult.url) {
@@ -112,11 +132,12 @@ export const processEventUpdate = async (
       console.log("[UPDATE] No new image uploaded. Keeping existing image.");
     }
 
+    // ✅ Updated event object with i18n fields
     const updatedEvent: Event = {
       id: event.id,
       name,
-      date,
       description,
+      date,
       price,
       url,
       active,
@@ -142,7 +163,6 @@ export const processEventUpdate = async (
     return { success: false, errorMessage: "Unexpected error during event update" };
   }
 };
-
 /**
  * Delete the event and its cover image from Firebase Storage and Firestore.
  */
