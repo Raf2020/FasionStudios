@@ -54,6 +54,7 @@ const HomeSubscribeSection = () => {
           </p>
           <Input placeholder="Email" value={email} setValue={setEmail} />
           <PrimaryButton
+              textClassName="text-sm text-center font-semibold"
             disabled={pending}
             name={t("SubscribeNow")}
             onClick={handleSubscribe}

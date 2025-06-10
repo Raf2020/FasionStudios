@@ -53,9 +53,10 @@ const HomeHeroSection = () => {
                 </Link>
               </div>
               <PrimaryButton
+                  onClick={() => window.location.href = "https://appfusionstudios.viday.es/inicio"}
                   name={t("BookButton")}
                   textClassName="text-black text-sm text-center font-semibold"
-                  className="hidden md:block  !w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
+                  className="hidden md:block !w-full xs:!w-fit py-4 px-8 rounded-full bg-primary-blue cursor-pointer hover:bg-primary-blue/90"
               />
               <PrimaryButton
                 name={t("UpcomingButton")}

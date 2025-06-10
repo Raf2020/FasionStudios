@@ -30,6 +30,7 @@ const HomeClassesSection = () => {
             {t("Description")}
           </p>
           <PrimaryButton
+              textClassName="text-sm text-center font-semibold"
             name={t("ViewAll")}
             onClick={() => router.push("/classes")}
           />

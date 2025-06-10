@@ -9,11 +9,18 @@ import toast, { Toaster } from "react-hot-toast";
 import { Event } from "@/types/event.types";
 import {processEventCreation, processEventDeletion, processEventUpdate} from "@/actions/event/event.action";
 import {getAllEvents} from "@/actions/event/event.db";
+import {useLocale} from "next-intl";
 
 const eventSchema = z.object({
-    name: z.string().min(1, "Event name is required"),
+    name: z.object({
+        en: z.string().min(1, "English name is required"),
+        es: z.string().min(1, "Spanish name is required"),
+    }),
+    description: z.object({
+        en: z.string().min(1, "English description is required"),
+        es: z.string().min(1, "Spanish description is required"),
+    }),
     date: z.string().min(1, "Date is required"),
-    description: z.string().min(1, "Description is required"),
     price: z
         .number({ invalid_type_error: "Price must be a number" })
         .nonnegative("Price must be positive"),
@@ -25,9 +32,9 @@ const eventSchema = z.object({
 type EventFormValues = z.infer<typeof eventSchema>;
 
 const initialValues: EventFormValues = {
-    name: "",
+    name: { en: "", es: "" },
+    description: { en: "", es: "" },
     date: "",
-    description: "",
     price: 0,
     url: "",
     active: false,
@@ -35,6 +42,7 @@ const initialValues: EventFormValues = {
 };
 
 const AdminEventPage = () => {
+    const locale = useLocale();
     const [events, setEvents] = useState<Event[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingEvent, setEditingEvent] = useState<Event | null>(null);
@@ -83,7 +91,15 @@ const AdminEventPage = () => {
         console.log("[UI] Form submitted. Preparing FormData...");
         const formData = new FormData();
         Object.entries(values).forEach(([key, value]) => {
-            if (value !== undefined && value !== null) {
+            if (typeof value === "object" && value !== null && !(value instanceof File)) {
+                Object.entries(value).forEach(([lang, val]) => {
+                    formData.append(`${key}.${lang}`, String(val));
+                });
+            } else if (typeof value === "boolean") {
+                formData.append(key, value.toString());
+            } else if (typeof value === "number") {
+                formData.append(key, value.toString());
+            } else if (value !== undefined && value !== null) {
                 formData.append(key, value as string | Blob);
             }
         });
@@ -112,7 +128,7 @@ const AdminEventPage = () => {
 
     return (
         <div className="p-6">
-            <Toaster />
+            <Toaster/>
             <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold">Admin Events</h1>
                 <button
@@ -136,7 +152,7 @@ const AdminEventPage = () => {
                 <tbody>
                 {events.map((event) => (
                     <tr key={event.id} className="border">
-                        <td className="p-2">{event.name}</td>
+                        <td className="p-2">{event.name[locale]}</td>
                         <td className="p-2">{new Date(event.date).toLocaleDateString()}</td>
                         <td className="p-2">₱{event.price}</td>
                         <td className="p-2">{event.active ? "✅" : "❌"}</td>
@@ -178,9 +194,15 @@ const AdminEventPage = () => {
                                 editingEvent
                                     ? {
                                         ...editingEvent,
-                                        date: new Date(editingEvent.date)
-                                            .toISOString()
-                                            .split("T")[0],
+                                        name: {
+                                            en: editingEvent.name?.en || "",
+                                            es: editingEvent.name?.es || "",
+                                        },
+                                        description: {
+                                            en: editingEvent.description?.en || "",
+                                            es: editingEvent.description?.es || "",
+                                        },
+                                        date: new Date(editingEvent.date).toISOString().split("T")[0],
                                         image: undefined,
                                     }
                                     : initialValues
@@ -189,30 +211,40 @@ const AdminEventPage = () => {
                             validationSchema={toFormikValidationSchema(eventSchema)}
                             onSubmit={handleSubmit}
                         >
-                            {({ setFieldValue }) => (
+                            {({setFieldValue}) => (
                                 <Form className="space-y-3">
-                                    <Field
-                                        name="name"
-                                        placeholder="Event Name"
-                                        className="w-full p-2 border rounded"
-                                    />
-                                    <ErrorMessage name="name" component="div" className="text-red-500 text-sm" />
+                                    <label className="block font-semibold">Event Name</label>
+                                    <Field name="name.en" placeholder="Event Name (EN)"
+                                           className="w-full p-2 border rounded"/>
+                                    <ErrorMessage name="name.en" component="div" className="text-red-500 text-sm"/>
 
+                                    <Field name="name.es" placeholder="Event Name (ES)"
+                                           className="w-full p-2 border rounded mt-2"/>
+                                    <ErrorMessage name="name.es" component="div" className="text-red-500 text-sm"/>
                                     <Field
                                         name="date"
                                         type="date"
                                         className="w-full p-2 border rounded"
                                     />
-                                    <ErrorMessage name="date" component="div" className="text-red-500 text-sm" />
-
+                                    <ErrorMessage name="date" component="div" className="text-red-500 text-sm"/>
+                                    <label className="block font-semibold mt-4">Description</label>
                                     <Field
-                                        name="description"
+                                        name="description.en"
                                         as="textarea"
-                                        placeholder="Description"
+                                        placeholder="Description (EN)"
                                         className="w-full p-2 border rounded"
                                     />
-                                    <ErrorMessage name="description" component="div" className="text-red-500 text-sm" />
+                                    <ErrorMessage name="description.en" component="div"
+                                                  className="text-red-500 text-sm"/>
 
+                                    <Field
+                                        name="description.es"
+                                        as="textarea"
+                                        placeholder="Description (ES)"
+                                        className="w-full p-2 border rounded mt-2"
+                                    />
+                                    <ErrorMessage name="description.es" component="div"
+                                                  className="text-red-500 text-sm"/>
                                     <Field
                                         name="price"
                                         type="number"
@@ -221,7 +253,7 @@ const AdminEventPage = () => {
                                             setFieldValue("price", parseFloat(e.target.value))
                                         }
                                     />
-                                    <ErrorMessage name="price" component="div" className="text-red-500 text-sm" />
+                                    <ErrorMessage name="price" component="div" className="text-red-500 text-sm"/>
 
                                     <Field
                                         name="url"
@@ -229,10 +261,10 @@ const AdminEventPage = () => {
                                         placeholder="URL"
                                         className="w-full p-2 border rounded"
                                     />
-                                    <ErrorMessage name="url" component="div" className="text-red-500 text-sm" />
+                                    <ErrorMessage name="url" component="div" className="text-red-500 text-sm"/>
 
                                     <div className="flex items-center space-x-2">
-                                        <Field name="active" type="checkbox" className="w-4 h-4" />
+                                        <Field name="active" type="checkbox" className="w-4 h-4"/>
                                         <label htmlFor="active">Active</label>
                                     </div>
 
