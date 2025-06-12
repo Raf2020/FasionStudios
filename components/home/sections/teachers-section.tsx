@@ -39,7 +39,7 @@ const HomeTeachersSections = () => {
           onClick={() => router.push("/teachers")}
         />
       </div>
-      <SwiperWrapper slidesPerView={mobileMode ? 1 : 3}>
+      <SwiperWrapper slidesPerView={mobileMode ? 1 : 1}>
         {teachers.map((teacher) => (
           <SwiperSlide key={teacher.name} className="pb-10">
             <div className="w-full sm:px-6">
