@@ -39,7 +39,7 @@ const HomeClassesSection = () => {
 
       <div className="sm:-mt-[250px] w-full pt-8 px-6 sm:pt-0 sm:px-15">
         <SwiperWrapper
-            slidesPerView={mobileMode ? 1 : 3.2}
+            slidesPerView={mobileMode ? 1 : 1}
         >
           {classes.map((cls) => (
               <SwiperSlide key={cls.name} className="!w-full">
