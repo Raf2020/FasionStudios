@@ -4,7 +4,7 @@ import { ClassData } from "@/types/data.types";
 const ClassThumb = ({ classData }: { classData: ClassData }) => {
     return (
         <div className="flex w-full flex-col shadow-md">
-            <div className="mb-6 w-full h-[500px] rounded-tl-2xl rounded-br-2xl overflow-hidden relative">
+            <div className="mb-6 w-full h-[400px] md:h-[600px] rounded-tl-2xl rounded-br-2xl overflow-hidden relative">
                 <Image
                     src={classData.image}
                     alt={classData.name}
