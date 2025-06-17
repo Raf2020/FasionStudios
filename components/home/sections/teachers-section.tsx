@@ -2,22 +2,15 @@
 
 import TeacherThumb from "../teacher-thumb";
 import SwiperWrapper from "@/components/global/swiper/swiper-wrapper";
-import SwiperAutoSlider from "@/components/global/swiper/swiper-auto-slider";
 import PrimaryButton from "@/components/global/elements/primary-button";
-import { teachers } from "@/shared/constants/data.const";
+import {classes, teachers} from "@/shared/constants/data.const";
 import { SwiperSlide } from "swiper/react";
-import { useEffect, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 const HomeTeachersSections = () => {
   const t = useTranslations("TeacherSection");
   const router = useRouter();
-  const [mobileMode, setMobileMode] = useState(false);
-
-  useEffect(() => {
-    setMobileMode(window.innerWidth < 640);
-  }, []);
 
   return (
     <div className="w-full pb-8 px-6 sm:pb-20 sm:px-15">
@@ -26,7 +19,7 @@ const HomeTeachersSections = () => {
       </div>
       <div className="flex w-full pb-8 sm:pb-20 flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="pb-2 text-black text-2xl sm:text-[52px] sm:leading-[72px]">
+          <p className="pb-2 text-black text-2xl sm:text-[52px] sm:leading-[72px] font-instrument-serif ">
             {t("MeetTeachers")}
           </p>
           <p className="max-w-xl text-black text-base leading-[30px]">
@@ -34,15 +27,28 @@ const HomeTeachersSections = () => {
           </p>
         </div>
         <PrimaryButton
-            textClassName="text-sm text-center font-semibold"
           name={t("ViewAll")}
           onClick={() => router.push("/teachers")}
         />
       </div>
-      <SwiperWrapper slidesPerView={mobileMode ? 1 : 1}>
+        <SwiperWrapper
+            slidesPerView={1}
+            slidesPerGroup={1}
+            spaceBetween={32}
+            loop={classes.length > 4}
+            navigation={false}
+            pagination={{ clickable: true, el: "#custom-swiper-pagination2" }}
+            className="py-8"
+            scrollbar={false}
+            breakpoints={{
+                360: { slidesPerView: 1, slidesPerGroup: 1 },
+                640: { slidesPerView: 2, slidesPerGroup: 2 },
+                1024: { slidesPerView: 3, slidesPerGroup: 3 },
+            }}
+        >
         {teachers.map((teacher) => (
-          <SwiperSlide key={teacher.name} className="pb-10">
-            <div className="w-full sm:px-6">
+          <SwiperSlide key={teacher.name}>
+            <div className="w-full">
               <TeacherThumb
                 teacherData={{
                   ...teacher,
@@ -54,8 +60,8 @@ const HomeTeachersSections = () => {
             </div>
           </SwiperSlide>
         ))}
-        <SwiperAutoSlider slideCount={mobileMode ? 5 : 3} />
       </SwiperWrapper>
+      <div className="flex justify-center mt-6" id="custom-swiper-pagination2"></div>
     </div>
   );
 };
