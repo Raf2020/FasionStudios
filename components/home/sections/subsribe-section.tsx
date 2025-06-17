@@ -46,7 +46,7 @@ const HomeSubscribeSection = () => {
     >
       <div className="w-full pr-6 sm:pr-15">
         <div className="flex w-full flex-col gap-4">
-          <p className="text-black text-2xl sm:text-[52px] sm:leading-[64px]">
+          <p className="text-black text-2xl sm:text-[52px] sm:leading-[64px] font-instrument-serif ">
             {t("Title")}
           </p>
           <p className="text-black text-base leading-[30px]">

@@ -46,7 +46,7 @@ const AdDescription = ({
   description: string;
 }) => (
   <div className="flex w-full max-w-[540px] flex-col gap-6">
-    <p className="text-black text-5xl">{title}</p>
+    <p className="text-black text-5xl font-instrument-serif ">{title}</p>
     <p className="text-black text-lg">{description}</p>
   </div>
 );

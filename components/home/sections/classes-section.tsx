@@ -3,21 +3,14 @@
 import PrimaryButton from "@/components/global/elements/primary-button";
 import ClassThumb from "../class-thumb";
 import SwiperWrapper from "@/components/global/swiper/swiper-wrapper";
-import SwiperAutoSlider from "@/components/global/swiper/swiper-auto-slider";
 import { useRouter } from "@/i18n/navigation";
 import { classes } from "@/shared/constants/data.const";
-import { useEffect, useState } from "react";
 import { SwiperSlide } from "swiper/react";
 import { useTranslations } from "next-intl";
 
 const HomeClassesSection = () => {
   const t = useTranslations("ClassSection");
   const router = useRouter();
-  const [mobileMode, setMobileMode] = useState(false);
-
-  useEffect(() => {
-    setMobileMode(window.innerWidth < 640);
-  }, []);
 
   return (
     <div id="classes" className="w-full pb-8 sm:pb-20">
@@ -26,7 +19,7 @@ const HomeClassesSection = () => {
           <p className="text-white text-base font-medium">{t("OurClasses")}</p>
         </div>
         <div className="flex w-full pb-8 flex-col gap-6 sm:pb-0 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
-          <p className="max-w-3xl text-white text-2xl sm:text-[52px] sm:leading-[64px]">
+          <p className="max-w-3xl text-white text-2xl sm:text-[52px] sm:leading-[64px] font-instrument-serif ">
             {t("Description")}
           </p>
           <PrimaryButton
