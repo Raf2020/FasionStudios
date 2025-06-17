@@ -1,6 +1,6 @@
 import db from "@/lib/firestore";
 import { Subscriber } from "@/types/subscribe.type";
-import { collection, doc, getDocs, setDoc } from "firebase/firestore";
+import {collection, doc, getDocs, orderBy, query, setDoc} from "firebase/firestore";
 
 export const addSubscriber = async (subscriber: Subscriber) => {
   try {
@@ -19,7 +19,8 @@ export const addSubscriber = async (subscriber: Subscriber) => {
 export const getAllSubscribers = async () => {
   try {
     const collectionRef = collection(db, "subscribers");
-    const snapshot = await getDocs(collectionRef);
+    const q = query(collectionRef, orderBy("createdAt", "desc")); // or "asc"
+    const snapshot = await getDocs(q);
     return snapshot.docs.map((doc) => doc.data() as Subscriber);
   } catch (error) {
     return [];
