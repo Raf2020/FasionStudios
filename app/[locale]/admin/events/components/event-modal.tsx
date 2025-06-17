@@ -4,6 +4,7 @@ import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
 import ImageElement from "@/components/global/image-element";
 import { Event } from "@/types/event.types";
+import Image from "next/image";
 
 const eventSchema = z.object({
     name: z.object({
@@ -38,7 +39,6 @@ const initialValues: EventFormValues = {
 };
 
 const EventModal = ({
-                        isOpen,
                         onClose,
                         onSubmit,
                         editingEvent,
@@ -226,14 +226,16 @@ const EventModal = ({
                                 (editingEvent && editingEvent.coverImageUrl)) && (
                                 <div className="mb-2 flex justify-center">
                                     {imagePreview ? (
-                                        <img
+                                        <Image
+                                            height={128}
+                                            width={128}
                                             src={imagePreview}
                                             alt="Event preview"
                                             className="w-32 h-32 object-cover rounded border"
                                         />
                                     ) : (
                                         <ImageElement
-                                            imageUrl={editingEvent?.coverImageUrl!}
+                                            imageUrl={editingEvent?.coverImageUrl ?? ""}
                                             width={128}
                                             height={128}
                                             alt={editingEvent?.name?.[locale] || "Event Image"}
