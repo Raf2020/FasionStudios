@@ -49,10 +49,8 @@ export const deleteStorageFile = async (path: string) => {
  */
 export const getStorageImageUrl = async (path: string) => {
   try {
-    console.log("[STORAGE][GET_URL] Getting download URL for:", path);
     const pathRef = ref(storage, path);
     const publicUrl = await getDownloadURL(pathRef);
-    console.log("[STORAGE][GET_URL] Retrieved URL:", publicUrl);
     return publicUrl;
   } catch (error) {
     console.error("[STORAGE][GET_URL] Failed to get download URL for:", path, error);

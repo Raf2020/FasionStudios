@@ -77,30 +77,45 @@ export const getEventById = async (eventId: string): Promise<Event | undefined> 
 export const getAllEvents = async (type?: "past" | "upcoming"): Promise<Event[]> => {
   try {
     console.log("[DB][LIST] Fetching all events", type ? `with filter: ${type}` : "");
-    const now = Date.now();
-    const oneDay = 24 * 60 * 60 * 1000;
+    const now = new Date();
+    now.setHours(0,0,0,0); // Start of today for comparison
+
     const collectionRef = collection(db, "events");
-
-    const baseQuery =
-        type === "past"
-            ? query(
-                collectionRef,
-                where("date", "<", now - oneDay),
-                orderBy("date", "asc")
-            )
-            : type === "upcoming"
-                ? query(
-                    collectionRef,
-                    where("date", ">=", now - oneDay),
-                    orderBy("date", "asc")
-                )
-                : query(collectionRef, orderBy("date", "asc"));
-
+    const baseQuery = query(collectionRef, orderBy("from", "asc")); // order by from (or date fallback below)
     const snapshot = await getDocs(baseQuery);
+
     const results = snapshot.docs.map((doc) => ({ ...(doc.data() as Event), id: doc.id }));
 
-    console.log(`[DB][LIST] Found ${results.length} event(s).`);
-    return results;
+    // Helper functions
+    const getStart = (event: Event) => event.from ?? event.date ?? null;
+    const getEnd = (event: Event) => event.to ?? event.date ?? null;
+
+    // Filtering in JS (since Firestore can't do OR queries)
+    const filtered = results.filter((event) => {
+      const start = getStart(event) ? new Date(getStart(event)!) : null;
+      const end = getEnd(event) ? new Date(getEnd(event)!) : null;
+
+      if (!type) return true;
+      if (type === "upcoming") {
+        // Event ends today or in future, or starts today or in future (if only start)
+        return (end && end >= now) || (start && start >= now);
+      }
+      if (type === "past") {
+        // Event ends before today, or starts before today (if only start)
+        return (end && end < now) || (start && start < now);
+      }
+      return true;
+    });
+
+    // Sort by start date (from, or date)
+    filtered.sort((a, b) => {
+      const aStart = getStart(a) ? new Date(getStart(a)!) : new Date(0);
+      const bStart = getStart(b) ? new Date(getStart(b)!) : new Date(0);
+      return aStart.getTime() - bStart.getTime();
+    });
+
+    console.log(`[DB][LIST] Found ${filtered.length} event(s).`);
+    return filtered;
   } catch (error) {
     console.error("[DB][LIST] Error fetching events:", error);
     return [];
