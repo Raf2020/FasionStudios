@@ -4,13 +4,8 @@ import { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import { getAllVideoItems } from "@/actions/video-carousel/video-carousel.action";
 import { VideoCarouselItem } from "@/types/video-carousel";
+import {extractVideoId} from "@/lib/utils";
 
-const extractVideoId = (url: string) => {
-    const match = url.match(
-        /(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/
-    );
-    return match ? match[1] : null;
-};
 
 const VideoCarouselDisplay = () => {
     const [mainVideoId, setMainVideoId] = useState<string | null>(null);
