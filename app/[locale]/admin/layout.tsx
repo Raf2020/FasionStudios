@@ -7,11 +7,11 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AdminRequired>
+    // <AdminRequired>
       <div className="w-full">
         <AdminHeader />
         <div className="w-full py-10 px-6 sm:px-15">{children}</div>
       </div>
-    </AdminRequired>
+    // </AdminRequired>
   );
 }

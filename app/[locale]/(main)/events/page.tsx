@@ -81,35 +81,46 @@ const CustomerEventsPage = () => {
                                 {/* Content */}
                                 <CardContent className="p-4 flex flex-col justify-between w-full">
                                     {/* Availability + Date */}
-                                    <div className="flex flex-wrap gap-2 text-sm mb-2">
-                                        {/* Placeholder availability */}
-                                        <span className="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full font-semibold">
-            22 {t("AvailableSpots")}
-          </span>
-                                        <span className="text-gray-700 font-medium">
-            📅 {t("date")}:{" "}
-                                            {new Date(event.date).toLocaleDateString(locale, {
-                                                weekday: "long",
-                                                year: "numeric",
-                                                month: "long",
-                                                day: "numeric",
-                                            })}
-          </span>
+                                    <div>
+                                        <div className="flex flex-wrap gap-2 text-sm mb-2">
+                                            {/* Placeholder availability */}
+                                            <span className="bg-yellow-200 text-yellow-800 px-3 py-1 rounded-full font-medium">
+  📅 {t("date")}:{" "}
+                                                {event.from && event.to
+                                                    ? `${new Date(event.from).toLocaleDateString(locale, {
+                                                        weekday: "short",
+                                                        year: "numeric",
+                                                        month: "short",
+                                                        day: "numeric",
+                                                    })} - ${new Date(event.to).toLocaleDateString(locale, {
+                                                        weekday: "short",
+                                                        year: "numeric",
+                                                        month: "short",
+                                                        day: "numeric",
+                                                    })}`
+                                                    : new Date(event.from).toLocaleDateString(locale, {
+                                                            weekday: "long",
+                                                            year: "numeric",
+                                                            month: "long",
+                                                            day: "numeric",
+                                                        })}
+</span>
+                                        </div>
+
+                                        {/* Title */}
+                                        <h3 className="text-2xl font-bold text-cyan-800">{event.name[locale]}</h3>
+
+                                        {/* Description */}
+                                        <p className="text-gray-600 text-sm mt-2 line-clamp-3">
+                                            {event.description[locale]}
+                                        </p>
                                     </div>
-
-                                    {/* Title */}
-                                    <h3 className="text-2xl font-bold text-cyan-800">{event.name[locale]}</h3>
-
-                                    {/* Description */}
-                                    <p className="text-gray-600 text-sm mt-2 line-clamp-3">
-                                        {event.description[locale]}
-                                    </p>
 
                                     {/* CTA + Price */}
                                     <div className="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                                         <Button
                                             asChild
-                                            className="w-full sm:w-auto bg-cyan-600 hover:bg-cyan-700 text-white rounded-full px-6 py-2"
+                                            className="w-full sm:w-auto bg-cyan-600 hover:bg-cyan-700 text-white rounded-full px-8 py-4 font-bold text-lg"
                                         >
                                             <Link href={event.url} target="_blank">
                                                 {t("ReserveYourSpot")}

@@ -3,6 +3,8 @@ export interface Event {
   name: Record<string, string>;
   description: Record<string, string>;
   date: number;
+  from: number;
+  to: number;
   price: number;
   url: string;
   active: boolean;

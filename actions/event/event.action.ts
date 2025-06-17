@@ -25,6 +25,8 @@ export const processEventCreation = async (formData: FormData) => {
     };
 
     const date = new Date(formData.get("date") as string).getTime();
+    const from = new Date(formData.get("from") as string).getTime();
+    const to = new Date(formData.get("to") as string).getTime();
     const price = parseFloat(formData.get("price") as string);
     const url = formData.get("url") as string;
     const active = formData.get("active") === "true";
@@ -59,6 +61,8 @@ export const processEventCreation = async (formData: FormData) => {
       url,
       active,
       coverImageUrl,
+      from,
+      to
     };
 
     console.log("[CREATE] Saving event to Firestore:", newEvent);
@@ -102,6 +106,8 @@ export const processEventUpdate = async (
     };
 
     const date = new Date(formData.get("date") as string).getTime();
+    const from = new Date(formData.get("from") as string).getTime();
+    const to = new Date(formData.get("to") as string).getTime();
     const price = parseFloat(formData.get("price") as string);
     const url = formData.get("url") as string;
     const active = formData.get("active") === "true";
@@ -142,6 +148,8 @@ export const processEventUpdate = async (
       url,
       active,
       coverImageUrl,
+      from,
+      to,
     };
 
     console.log("[UPDATE] Saving updated event:", updatedEvent);
