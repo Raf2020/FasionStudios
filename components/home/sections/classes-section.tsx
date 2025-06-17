@@ -37,22 +37,36 @@ const HomeClassesSection = () => {
       </div>
 
       <div className="sm:-mt-[250px] w-full pt-8 px-6 sm:pt-0 sm:px-15">
-        <SwiperWrapper
-            slidesPerView={mobileMode ? 1 : 3.2}
-        >
-          {classes.map((cls) => (
-              <SwiperSlide key={cls.name} className="!w-full">
-                <ClassThumb
-                    classData={{
-                      ...cls,
-                      name: t(`Classes.${cls.name}.Name`),
-                      description: t(`Classes.${cls.name}.Description`),
-                    }}
-                />
-              </SwiperSlide>
-          ))}
-          <SwiperAutoSlider slideCount={mobileMode ? 18 : 15} />
-        </SwiperWrapper>
+          <SwiperWrapper
+              slidesPerView={1}
+              slidesPerGroup={1}
+              spaceBetween={32}
+              loop={classes.length > 4}
+              navigation={false}
+              pagination={{ clickable: true, el: "#custom-swiper-pagination1" }}
+              className="py-8"
+              scrollbar={false}
+              breakpoints={{
+                  360: { slidesPerView: 1, slidesPerGroup: 1 },
+                  640: { slidesPerView: 2, slidesPerGroup: 2 },
+                  1024: { slidesPerView: 4, slidesPerGroup: 4 },
+              }}
+          >
+              {classes.map((cls) => (
+                  <SwiperSlide key={cls.name}>
+                      <div className="overflow-hidden flex flex-col h-full ">
+                          <ClassThumb
+                              classData={{
+                                  ...cls,
+                                  name: t(`Classes.${cls.name}.Name`),
+                                  description: t(`Classes.${cls.name}.Description`),
+                              }}
+                          />
+                      </div>
+                  </SwiperSlide>
+              ))}
+          </SwiperWrapper>
+          <div className="flex justify-center mt-6" id="custom-swiper-pagination1"></div>
       </div>
     </div>
   );
