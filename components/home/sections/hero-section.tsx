@@ -5,32 +5,18 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { getAllVideoItems } from "@/actions/video-carousel/video-carousel.action";
 import { extractVideoId } from "@/lib/utils";
-import { VideoCarouselItem } from "@/types/video-carousel";
 
-// Helper for mobile detection (optional, but ensures hydration consistency)
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 640); // Tailwind 'sm'
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-  return isMobile;
-}
 
 const HomeHeroSection = () => {
   const router = useRouter();
   const t = useTranslations("HeroSection");
   const [mainVideoId, setMainVideoId] = useState<string | null>(null);
-  const [videoList, setVideoList] = useState<VideoCarouselItem[]>([]);
   // Optional: If you want JS-based detection instead of just tailwind classes
   // const isMobile = useIsMobile();
 
   useEffect(() => {
     const load = async () => {
       const videos = await getAllVideoItems();
-      setVideoList(videos);
       if (videos.length > 0) {
         const firstId = extractVideoId(videos[0].youtubeLink);
         setMainVideoId(firstId);
