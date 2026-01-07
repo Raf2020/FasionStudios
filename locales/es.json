@@ -156,9 +156,6 @@
       "Instagram": "Instagram",
       "Facebook": "Facebook"
     },
-    "LegalNotice": "Aviso Legal",
-    "PrivacyPolicy": "Política de Privacidad",
-    "CookiePolicy": "Política de Cookies",
     "CopyRight": "© 2025 Fusion Studios. Todos los Derechos Reservados.!"
   },
   "HeaderSection": {
@@ -185,16 +182,5 @@
     "perPerson": "por persona",
     "AvailableSpots": "Plazas disponibles",
     "date": "Fecha"
-  },
-  "CookieBanner": {
-    "Title": "Configuración de Cookies",
-    "Description": "Para administrar o deshabilitar estas cookies haz click en Configurar cookies.",
-    "CookiePolicy": "Política de cookies",
-    "ConfigureCookies": "CONFIGURAR COOKIES",
-    "RejectAll": "RECHAZAR TODAS",
-    "AcceptAll": "ACEPTAR TODAS",
-    "ConsentMessage": "Utilizamos cookies para mejorar su experiencia de navegación, ofrecer contenido personalizado y analizar nuestro tráfico. Al hacer clic en 'Aceptar Todas', usted acepta nuestro uso de cookies.",
-    "PrivacyConsent": "He leído y acepto la",
-    "PrivacyPolicy": "Política de Privacidad"
   }
 }
