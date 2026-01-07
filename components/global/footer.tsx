@@ -93,8 +93,26 @@ const Footer = () => {
 
         <div className="w-full h-[1px] bg-white mt-10"></div>
 
-        <div className="w-full pt-6 text-center">
-          <p className="text-sm">{t("CopyRight")}</p>
+        <div className="w-full pt-6">
+          {/* Legal Links */}
+          <div className="flex flex-wrap justify-center gap-4 mb-4 text-xs sm:text-sm">
+            <Link href="/legal-notice" className="text-[#9A9A9A] hover:text-white transition-colors">
+              {t("LegalNotice")}
+            </Link>
+            <span className="text-[#9A9A9A]">|</span>
+            <Link href="/privacy-policy" className="text-[#9A9A9A] hover:text-white transition-colors">
+              {t("PrivacyPolicy")}
+            </Link>
+            <span className="text-[#9A9A9A]">|</span>
+            <Link href="/cookie-policy" className="text-[#9A9A9A] hover:text-white transition-colors">
+              {t("CookiePolicy")}
+            </Link>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-center">
+            <p className="text-sm">{t("CopyRight")}</p>
+          </div>
         </div>
       </footer>
   );
