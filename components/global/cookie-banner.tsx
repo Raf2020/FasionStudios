@@ -193,8 +193,8 @@ export function CookieBanner() {
             <div className="p-6 space-y-6">
               {/* Necessary Cookies */}
               <CookieCategory
-                title="Strictly Necessary Cookies"
-                description="These cookies are essential for the website to function properly. They cannot be disabled."
+                title={t("NecessaryCookiesTitle")}
+                description={t("NecessaryCookiesDesc")}
                 enabled={preferences.necessary}
                 locked={true}
                 onToggle={() => {}}
@@ -202,8 +202,8 @@ export function CookieBanner() {
 
               {/* Analytics Cookies */}
               <CookieCategory
-                title="Analytics Cookies"
-                description="These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously."
+                title={t("AnalyticsCookiesTitle")}
+                description={t("AnalyticsCookiesDesc")}
                 enabled={preferences.analytics}
                 locked={false}
                 onToggle={() => handleTogglePreference("analytics")}
@@ -211,8 +211,8 @@ export function CookieBanner() {
 
               {/* Functional Cookies */}
               <CookieCategory
-                title="Functional Cookies"
-                description="These cookies enable enhanced functionality and personalization, such as videos and live chat."
+                title={t("FunctionalCookiesTitle")}
+                description={t("FunctionalCookiesDesc")}
                 enabled={preferences.functional}
                 locked={false}
                 onToggle={() => handleTogglePreference("functional")}
@@ -220,8 +220,8 @@ export function CookieBanner() {
 
               {/* Marketing Cookies */}
               <CookieCategory
-                title="Marketing Cookies"
-                description="These cookies are used to track visitors across websites to display relevant advertisements."
+                title={t("MarketingCookiesTitle")}
+                description={t("MarketingCookiesDesc")}
                 enabled={preferences.marketing}
                 locked={false}
                 onToggle={() => handleTogglePreference("marketing")}
@@ -240,7 +240,7 @@ export function CookieBanner() {
                 onClick={handleSavePreferences}
                 className="px-6 py-2 bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors"
               >
-                Save Preferences
+                {t("SavePreferences")}
               </button>
               <button
                 onClick={handleAcceptAll}

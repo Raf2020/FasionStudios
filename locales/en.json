@@ -195,6 +195,15 @@
     "AcceptAll": "ACCEPT ALL",
     "ConsentMessage": "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking 'Accept All', you consent to our use of cookies.",
     "PrivacyConsent": "I have read and accept the",
-    "PrivacyPolicy": "Privacy Policy"
+    "PrivacyPolicy": "Privacy Policy",
+    "SavePreferences": "Save Preferences",
+    "NecessaryCookiesTitle": "Strictly Necessary Cookies",
+    "NecessaryCookiesDesc": "These cookies are essential for the website to function properly. They cannot be disabled.",
+    "AnalyticsCookiesTitle": "Analytics Cookies",
+    "AnalyticsCookiesDesc": "These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.",
+    "FunctionalCookiesTitle": "Functional Cookies",
+    "FunctionalCookiesDesc": "These cookies enable enhanced functionality and personalization, such as videos and live chat.",
+    "MarketingCookiesTitle": "Marketing Cookies",
+    "MarketingCookiesDesc": "These cookies are used to track visitors across websites to display relevant advertisements."
   }
 }
