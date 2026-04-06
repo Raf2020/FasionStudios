@@ -67,7 +67,7 @@ const HomeHeroSection = () => {
               <div className="flex flex-col xs:flex-row items-center gap-4 mt-5">
                 <div className="fixed bottom-0 left-0 right-0 z-50 sm:hidden bg-white border-t border-gray-200 shadow-lg p-2">
                   <Link
-                      href="https://appfusionstudios.viday.es/"
+                      href="https://clients.mindbodyonline.com/classic/ws?studioid=5752380&stype=-98"
                       passHref
                       target="_blank"
                       rel="noopener noreferrer"
@@ -83,7 +83,7 @@ const HomeHeroSection = () => {
                 <PrimaryButton
                     onClick={() =>
                         (window.location.href =
-                            "https://appfusionstudios.viday.es/inicio")
+                            "https://clients.mindbodyonline.com/classic/ws?studioid=5752380&stype=-98")
                     }
                     name={t("BookButton")}
                     textClassName="text-black text-sm text-center font-semibold"
