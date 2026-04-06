@@ -7,7 +7,7 @@ import {
 import storage from "@/lib/storage";
 
 /**
- * Upload an image to Firebase Storage
+ * Upload an image to Firebase Storage — returns storage path
  */
 export const uploadStorageImage = async (file: File, path: string) => {
   try {
@@ -22,6 +22,23 @@ export const uploadStorageImage = async (file: File, path: string) => {
 
     console.log("[STORAGE][UPLOAD] Upload successful:", metadata.fullPath);
     return pathRef.fullPath;
+  } catch (error) {
+    console.error("[STORAGE][UPLOAD] Failed to upload file:", path, JSON.stringify(error));
+    return "";
+  }
+};
+
+/**
+ * Upload an image to Firebase Storage — returns public download URL
+ */
+export const uploadStorageImageAndGetUrl = async (file: File, path: string) => {
+  try {
+    console.log("[STORAGE][UPLOAD] Uploading file to:", path);
+    const pathRef = ref(storage, path);
+    await uploadBytes(pathRef, file);
+    const publicUrl = await getDownloadURL(pathRef);
+    console.log("[STORAGE][UPLOAD] Upload successful, public URL:", publicUrl);
+    return publicUrl;
   } catch (error) {
     console.error("[STORAGE][UPLOAD] Failed to upload file:", path, JSON.stringify(error));
     return "";
