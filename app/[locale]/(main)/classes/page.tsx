@@ -1,18 +1,52 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import ClassThumb from "@/components/home/class-thumb";
-// import { appMetadata } from "@/shared/constants/app.const";
-import { classes } from "@/shared/constants/data.const";
-import { useTranslations } from "next-intl";
-
-// export const metadata = {
-//   ...appMetadata,
-//   description:
-//     "Join Fusion Studios in Coín, Málaga, for top-rated dance and fitness classes! Explore ballet, aerial silks, yoga, Brazilian Jiu-Jitsu, and more. Perfect for families, kids, and adults.",
-// };
+import { classes as fallbackClasses } from "@/shared/constants/data.const";
+import { useTranslations, useLocale } from "next-intl";
+import { getAllClasses } from "@/actions/class/class.db";
+import { ClassData } from "@/types/data.types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const ClassesPage = () => {
   const t = useTranslations("ClassSection");
+  const locale = useLocale();
+  const [classItems, setClassItems] = useState<ClassData[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+    getAllClasses()
+      .then((firebaseClasses) => {
+        if (firebaseClasses.length > 0) {
+          setClassItems(
+            firebaseClasses.map((cls) => ({
+              name: cls.name[locale] ?? cls.name["en"],
+              description: cls.description[locale] ?? cls.description["en"],
+              image: cls.image,
+            }))
+          );
+        } else {
+          setClassItems(
+            fallbackClasses.map((cls) => ({
+              ...cls,
+              name: t(`Classes.${cls.name}.Name`),
+              description: t(`Classes.${cls.name}.Description`),
+            }))
+          );
+        }
+      })
+      .catch(() => {
+        setClassItems(
+          fallbackClasses.map((cls) => ({
+            ...cls,
+            name: t(`Classes.${cls.name}.Name`),
+            description: t(`Classes.${cls.name}.Description`),
+          }))
+        );
+      })
+      .finally(() => setIsLoading(false));
+  }, [locale]);
 
   return (
     <div className="w-full pb-8 sm:pb-20">
@@ -24,16 +58,19 @@ const ClassesPage = () => {
         </div>
       </div>
       <div className="sm:-mt-[250px] grid w-full pt-8 px-6 sm:pt-0 sm:px-15 grid-cols-1 sm:grid-cols-4 gap-6">
-        {classes.map((cls) => (
-          <ClassThumb
-            key={cls.name}
-            classData={{
-              ...cls,
-              name: t(`Classes.${cls.name}.Name`),
-              description: t(`Classes.${cls.name}.Description`),
-            }}
-          />
-        ))}
+        {isLoading
+          ? Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="flex w-full flex-col shadow-md">
+                <Skeleton className="mb-6 w-full h-[400px] md:h-[600px] rounded-tl-2xl rounded-br-2xl" />
+                <Skeleton className="h-7 w-2/3 mb-2" />
+                <Skeleton className="h-4 w-full mb-1" />
+                <Skeleton className="h-4 w-11/12 mb-1" />
+                <Skeleton className="h-4 w-4/5" />
+              </div>
+            ))
+          : classItems.map((cls) => (
+              <ClassThumb key={cls.name} classData={cls} />
+            ))}
       </div>
     </div>
   );
