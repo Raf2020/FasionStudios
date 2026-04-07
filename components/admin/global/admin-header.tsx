@@ -10,6 +10,7 @@ const menuItems = [
   { name: "Events", href: "/admin/events" },
   { name: "Video Carousel", href: "/admin/video-carousel" },
   { name: "Classes", href: "/admin/classes" },
+  { name: "Teachers", href: "/admin/teachers" },
 ];
 
 const AdminHeader = () => {
