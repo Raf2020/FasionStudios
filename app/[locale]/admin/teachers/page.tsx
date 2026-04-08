@@ -120,7 +120,9 @@ const AdminTeachersPage = () => {
           <div className="bg-white p-6 rounded shadow-md w-full max-w-sm">
             <h2 className="text-lg font-semibold mb-2">Delete Teacher</h2>
             <p className="text-gray-600 mb-6">
-              Are you sure you want to delete <span className="font-semibold">"{deletingTeacher.name[locale]}"</span>? This cannot be undone.
+              Are you sure you want to delete{" "}
+              <span className="font-semibold">&quot;{deletingTeacher.name[locale]}&quot;</span>?{" "}
+              This cannot be undone.
             </p>
             <div className="flex justify-end gap-2">
               <button

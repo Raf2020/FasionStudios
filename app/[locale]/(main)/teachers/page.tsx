@@ -49,7 +49,7 @@ const TeachersPage = () => {
         );
       })
       .finally(() => setIsLoading(false));
-  }, [locale]);
+  }, [locale, t]);
 
   return (
     <div className="w-full px-6 pb-10 sm:px-15 sm:pb-20">

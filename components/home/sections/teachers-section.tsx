@@ -54,7 +54,7 @@ const HomeTeachersSections = () => {
         );
       })
       .finally(() => setIsLoading(false));
-  }, [locale]);
+  }, [locale, t]);
 
   return (
     <div className="w-full pb-8 px-6 sm:pb-20 sm:px-15">
