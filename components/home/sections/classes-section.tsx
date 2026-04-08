@@ -51,7 +51,7 @@ const HomeClassesSection = () => {
         );
       })
       .finally(() => setIsLoading(false));
-  }, [locale]);
+  }, [locale, t]);
 
   return (
     <div id="classes" className="w-full pb-8 sm:pb-20">

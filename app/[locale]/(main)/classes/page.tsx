@@ -46,7 +46,7 @@ const ClassesPage = () => {
         );
       })
       .finally(() => setIsLoading(false));
-  }, [locale]);
+  }, [locale, t]);
 
   return (
     <div className="w-full pb-8 sm:pb-20">
