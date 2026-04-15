@@ -25,6 +25,7 @@ const Header = () => {
 
   const localePathName = useLocalePathname();
   const locale = useLocale();
+  const [hash, setHash] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,6 +36,14 @@ const Header = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setHash(window.location.hash || "");
+    const onHashChange = () => setHash(window.location.hash || "");
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -76,7 +85,7 @@ const Header = () => {
 
               {/* Language Toggle */}
               <Link
-                  href={localePathName + window.location.hash}
+                  href={localePathName + hash}
                   locale={locale === "es" ? "en" : "es"}
                   className="text-white text-base font-semibold hover:text-gray-200"
               >
