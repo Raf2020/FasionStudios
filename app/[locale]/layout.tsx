@@ -29,11 +29,9 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   const title = titles[locale] ?? appMetadata.title;
   const description = descriptions[locale] ?? appMetadata.description;
 
-  const siteUrl =
-    (appMetadata.openGraph && (appMetadata.openGraph as any).url) ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    "";
-  const baseUrl = siteUrl.replace(/\/$/, "");
+  const siteUrl = appMetadata.openGraph?.url ?? process.env.NEXT_PUBLIC_APP_URL ?? "";
+  const siteUrlStr = typeof siteUrl === "string" ? siteUrl : String(siteUrl);
+  const baseUrl = siteUrlStr.replace(/\/$/, "");
   const heroImage = baseUrl ? `${baseUrl}/images/home/hero.svg` : "/images/home/hero.svg";
 
   return {
