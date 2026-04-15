@@ -44,14 +44,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       ...appMetadata.openGraph,
       title,
       description,
-      // Force a single canonical hero image for social previews
-      images: heroImage,
+      images: [{ url: heroImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       ...appMetadata.twitter,
       title,
       description,
-      images: heroImage,
+      images: [heroImage],
       card: "summary_large_image",
     },
   };
@@ -72,7 +71,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
