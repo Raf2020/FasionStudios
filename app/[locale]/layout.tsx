@@ -33,8 +33,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const baseUrl = siteUrlStr.replace(/\/$/, "");
   // Prefer the configured site URL, fall back to the production hero image URL
   const heroImage = baseUrl
-    ? `${baseUrl}/images/home/hero.svg`
-    : "https://www.fusionstudios.es/images/home/hero.svg";
+    ? `${baseUrl}/images/home/og-image.jpg`
+    : "https://www.fusionstudios.es/images/home/og-image.jpg";
 
   return {
     ...appMetadata,
