@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { usePathname } from "next/navigation";
+import { useLocale } from "next-intl";
+import { signOut } from "next-auth/react";
 
 const menuItems = [
   { name: "Bookings", href: "/admin/bookings" },
@@ -15,6 +17,7 @@ const menuItems = [
 
 const AdminHeader = () => {
   const pathName = usePathname();
+  const locale = useLocale();
 
   return (
     <div className="w-full py-4 px-6 sm:px-15 bg-gray-700">
@@ -28,21 +31,31 @@ const AdminHeader = () => {
             alt="logo"
           />
         </Link>
-        <div className="hidden sm:flex gap-6">
-          {menuItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className="text-base font-semibold"
-              style={{
-                color: pathName === item.href ? "#65FBFA" : "white",
-                textDecoration:
-                  pathName === item.href ? "underline" : undefined,
-              }}
-            >
-              {item.name}
-            </Link>
-          ))}
+        <div className="hidden sm:flex items-center gap-6">
+          <div className="flex gap-6">
+            {menuItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="text-base font-semibold"
+                style={{
+                  color: pathName === item.href ? "#65FBFA" : "white",
+                  textDecoration:
+                    pathName === item.href ? "underline" : undefined,
+                }}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
+          <button
+            onClick={() =>
+              signOut({ callbackUrl: `/${locale ?? ""}/auth/login` })
+            }
+            className="text-base font-semibold text-white hover:text-yellow-200"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </div>
