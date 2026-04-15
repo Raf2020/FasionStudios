@@ -13,6 +13,7 @@ export const AppConfig = {
 };
 
 export const appMetadata: Metadata = {
+  metadataBase: new URL("https://www.fusionstudios.es"),
   title: "Fusion Studios - Dance Classes in Coín",
   description:
     "Experience the joy of dance at Fusion Studios in Coín, Málaga, Costa del Sol! Our world-class instructors offer a variety of dance classes, from ballet to Brazilian Jiu-Jitsu, designed for all ages.",
@@ -32,7 +33,7 @@ export const appMetadata: Metadata = {
     title: "Fusion Studios - Dance Classes in Coín",
     description:
       "Join Fusion Studios in Coín, Málaga, for a wide range of dance and fitness classes, including ballet, aerial silks, Brazilian Jiu-Jitsu, yoga, and more! Perfect for families, kids, and adults. Sign up for free classes and updates.",
-    images: [{ url: "https://www.fusionstudios.es/images/header/logo.svg", width: 1200, height: 630, alt: "Fusion Studios" }],
+    images: [{ url: "/images/home/og-image.jpg", width: 1200, height: 630, alt: "Fusion Studios" }],
     url: "https://www.fusionstudios.es",
     type: "website",
   },
@@ -41,7 +42,7 @@ export const appMetadata: Metadata = {
     title: "Fusion Studios - Dance Classes in Coín",
     description:
       "Join Fusion Studios in Coín, Málaga, for a wide range of dance and fitness classes, including ballet, aerial silks, Brazilian Jiu-Jitsu, yoga, and more! Perfect for families, kids, and adults. Sign up for free classes and updates.",
-    images: ["https://www.fusionstudios.es/images/header/logo.svg"],
+    images: ["/images/home/og-image.jpg"],
   },
   icons: "https://www.fusionstudios.es/favicon.ico",
 };
