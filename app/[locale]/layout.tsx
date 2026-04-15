@@ -8,11 +8,10 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
-import { Toaster } from "react-hot-toast";
 import { CookieBanner } from "@/components/global/cookie-banner";
 
-export async function generateMetadata({ params }: { params: { locale: string } }) {
-  const locale = params.locale;
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
 
   const titles: Record<string, string> = {
     es: "Fusion Studios Coín Málaga | Clases de Baile, Yoga, Pilates, Pole y Aéreos",
@@ -32,7 +31,10 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   const siteUrl = appMetadata.openGraph?.url ?? process.env.NEXT_PUBLIC_APP_URL ?? "";
   const siteUrlStr = typeof siteUrl === "string" ? siteUrl : String(siteUrl);
   const baseUrl = siteUrlStr.replace(/\/$/, "");
-  const heroImage = baseUrl ? `${baseUrl}/images/home/hero.svg` : "/images/home/hero.svg";
+  // Prefer the configured site URL, fall back to the production hero image URL
+  const heroImage = baseUrl
+    ? `${baseUrl}/images/home/hero.svg`
+    : "https://www.fusionstudios.es/images/home/hero.svg";
 
   return {
     ...appMetadata,
@@ -42,7 +44,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
       ...appMetadata.openGraph,
       title,
       description,
-      images: [heroImage],
+      images: [{ url: heroImage, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       ...appMetadata.twitter,
@@ -69,7 +71,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${instrumentSerif.variable} antialiased`}
       >
@@ -80,7 +82,7 @@ export default async function RootLayout({
             <CookieBanner />
           </NextIntlClientProvider>
         </SessionProvider>
-        <Toaster/>
+        
       </body>
     </html>
   );
