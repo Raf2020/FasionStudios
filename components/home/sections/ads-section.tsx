@@ -17,7 +17,7 @@ const HomeAdsSection = () => {
         <AdImage image="/images/home/ad-2.svg" />
       </div>
       <div className="flex w-full flex-col sm:pr-15 sm:flex-row sm:items-center">
-        <AdImage image="/images/home/ad-1.svg" />
+        <AdImage image="/images/home/ad-1 new.png" />
         <div className="flex w-full p-6 sm:p-0 justify-end">
           <AdDescription
             title={t("Kid.Title")}
