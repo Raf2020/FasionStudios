@@ -14,7 +14,7 @@ const HomeAdsSection = () => {
             description={t("Family.Description")}
           />
         </div>
-        <AdImage image="/images/home/ad-2.svg" />
+        <AdImage image="/images/home/ad-2-new.png" />
       </div>
       <div className="flex w-full flex-col sm:pr-15 sm:flex-row sm:items-center">
         <AdImage image="/images/home/ad-1 new.png" />
