@@ -83,8 +83,8 @@ export default function VideoCarouselPage() {
         }
     };
     return (
-        <div className="p-6">
-            <div className="flex justify-between mb-4">
+        <div className="min-w-0">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
                 <h1 className="text-xl font-bold">Video Carousel Admin</h1>
                 <Button onClick={() => { form.reset(); setEditItem(null); setOpenForm(true); }}>
                     + Add Video
@@ -92,8 +92,8 @@ export default function VideoCarouselPage() {
             </div>
 
             {/* Table */}
-            <div className="border rounded-md">
-                <table className="w-full text-sm">
+            <div role="region" aria-label="Carousel videos" tabIndex={0} className="max-w-full overflow-x-auto rounded-md border">
+                <table className="w-full min-w-[28rem] text-sm">
                     <thead className="bg-muted text-xs uppercase text-muted-foreground">
                     <tr>
                         <th className="p-2 text-left">YouTube Link</th>
@@ -105,7 +105,7 @@ export default function VideoCarouselPage() {
                     <tbody>
                     {videoItems.map((item) => (
                         <tr key={item.id} className="border-t">
-                            <td className="p-2">{item.youtubeLink}</td>
+                            <td className="p-2 break-all">{item.youtubeLink}</td>
                             <td className="p-2 text-center">{item.isActive ? "✅" : "❌"}</td>
                             <td className="p-2 text-center">{item.position}</td>
                             <td className="p-2 text-right space-x-2">
@@ -131,7 +131,7 @@ export default function VideoCarouselPage() {
 
             {/* Form Dialog */}
             <Dialog open={openForm} onOpenChange={setOpenForm}>
-                <DialogContent>
+                <DialogContent className="max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle>{editItem ? "Edit Video" : "Add Video"}</DialogTitle>
                     </DialogHeader>
@@ -169,7 +169,7 @@ export default function VideoCarouselPage() {
 
             {/* Delete Dialog */}
             <Dialog open={openDelete} onOpenChange={setOpenDelete}>
-                <DialogContent>
+                <DialogContent className="max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] overflow-y-auto">
                     <DialogHeader>
                         <DialogTitle>Confirm Delete</DialogTitle>
                     </DialogHeader>

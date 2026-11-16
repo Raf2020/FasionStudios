@@ -54,7 +54,7 @@ const BookingsPage = () => {
         onSelectClick={handleSelectClick}
         allSelected={selectedBookings.length === bookings.length}
       />
-      <div className="flex gap-6">
+      <div className="flex flex-wrap gap-3">
         <PrimaryButton
           name="Download List as a sheet"
           lowHeight

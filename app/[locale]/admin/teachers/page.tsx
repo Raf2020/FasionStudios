@@ -76,9 +76,9 @@ const AdminTeachersPage = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="min-w-0">
       <Toaster />
-      <div className="flex justify-between items-center mb-4">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold">Admin Teachers</h1>
         <button
           className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"

@@ -57,7 +57,7 @@ const SubscribersPage = () => {
         subscribers={subscribers}
         onCheckClick={handleCheckClick}
       />
-      <div className="flex gap-6">
+      <div className="flex flex-wrap gap-3">
         <PrimaryButton
           name="Download List as a sheet"
           lowHeight

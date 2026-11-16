@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { usePathname } from "next/navigation";
+import { usePathname } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { signOut } from "next-auth/react";
 
@@ -20,45 +20,37 @@ const AdminHeader = () => {
   const locale = useLocale();
 
   return (
-    <div className="w-full py-4 px-6 sm:px-15 bg-gray-700">
-      <div className="flex items-center justify-between">
-        <Link href="/">
+    <header className="bg-gray-700 text-white">
+      <div className="mx-auto grid max-w-screen-2xl grid-cols-[1fr_auto] items-center gap-x-4 gap-y-2 px-4 py-3 sm:px-6 lg:grid-cols-[auto_1fr_auto] lg:px-8">
+        <Link href="/" className="justify-self-start">
           <Image
-            className="w-24 sm:w-auto"
+            className="h-auto w-24 lg:w-32"
             src="/images/header/logo.svg"
             width={153}
             height={85}
-            alt="logo"
+            alt="Fusion Studios home"
           />
         </Link>
-        <div className="hidden sm:flex items-center gap-6">
-          <div className="flex gap-6">
-            {menuItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="text-base font-semibold"
-                style={{
-                  color: pathName === item.href ? "#65FBFA" : "white",
-                  textDecoration:
-                    pathName === item.href ? "underline" : undefined,
-                }}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          <button
-            onClick={() =>
-              signOut({ callbackUrl: `/${locale ?? ""}/auth/login` })
-            }
-            className="text-base font-semibold text-white hover:text-yellow-200"
-          >
-            Logout
-          </button>
-        </div>
+        <nav aria-label="Admin navigation" className="col-span-2 row-start-2 flex flex-wrap gap-x-4 gap-y-1 lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:justify-center">
+          {menuItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={pathName === item.href ? "page" : undefined}
+              className="inline-flex min-h-11 items-center text-sm font-semibold hover:underline aria-[current=page]:text-cyan-200 aria-[current=page]:underline"
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
+        <button
+          onClick={() => signOut({ callbackUrl: `/${locale ?? ""}/auth/login` })}
+          className="col-start-2 row-start-1 min-h-11 text-sm font-semibold hover:underline lg:col-start-3"
+        >
+          Logout
+        </button>
       </div>
-    </div>
+    </header>
   );
 };
 
