@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+    experimental: {
+        serverActions: { bodySizeLimit: 4_400_000 },
+    },
     images: {
         domains: ['firebasestorage.googleapis.com'],
     },
