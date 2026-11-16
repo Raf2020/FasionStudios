@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { z } from "zod";
 import { toFormikValidationSchema } from "zod-formik-adapter";
@@ -46,15 +46,19 @@ const EventModal = ({
                     }: {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (formData: FormData, isEdit: boolean) => void;
+    onSubmit: (formData: FormData, isEdit: boolean) => Promise<void>;
     editingEvent: Event | null;
     locale: string;
 }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
 
+    useEffect(() => () => {
+        if (imagePreview) URL.revokeObjectURL(imagePreview);
+    }, [imagePreview]);
+
     return (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded shadow-md w-full max-w-lg relative">
+            <div className="bg-white p-6 rounded shadow-md w-full max-w-lg max-h-[90dvh] overflow-y-auto relative">
                 <h2 className="text-xl font-semibold mb-4">
                     {editingEvent ? "Edit Event" : "Create Event"}
                 </h2>
@@ -80,7 +84,7 @@ const EventModal = ({
                     }
                     enableReinitialize
                     validationSchema={toFormikValidationSchema(eventSchema)}
-                    onSubmit={(values) => {
+                    onSubmit={async (values) => {
                         const formData = new FormData();
                         Object.entries(values).forEach(([key, value]) => {
                             if (typeof value === "object" && value !== null && !(value instanceof File)) {
@@ -95,11 +99,10 @@ const EventModal = ({
                                 formData.append(key, value as string | Blob);
                             }
                         });
-                        onSubmit(formData, Boolean(editingEvent));
-                        setImagePreview(null);
+                        await onSubmit(formData, Boolean(editingEvent));
                     }}
                 >
-                    {({ setFieldValue }) => (
+                    {({ setFieldValue, isSubmitting }) => (
                         <Form className="space-y-1">
                             <label className="block font-semibold">Event Name</label>
                             <Field
@@ -136,7 +139,7 @@ const EventModal = ({
                             />
                             <div className="flex gap-2">
                                 <div className="w-1/2">
-                                    <label className="block font-semibold">FROM</label>
+                                    <label className="block font-semibold">Start date (optional)</label>
                                     <Field
                                         name="from"
                                         type="date"
@@ -149,7 +152,7 @@ const EventModal = ({
                                     />
                                 </div>
                                 <div className="w-1/2">
-                                    <label className="block font-semibold">TO</label>
+                                    <label className="block font-semibold">End date (optional)</label>
                                     <Field
                                         name="to"
                                         type="date"
@@ -190,6 +193,8 @@ const EventModal = ({
                             <Field
                                 name="price"
                                 type="number"
+                                step="0.01"
+                                min="0"
                                 className="w-full p-2 border rounded"
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                     setFieldValue("price", parseFloat(e.target.value))
@@ -267,6 +272,7 @@ const EventModal = ({
                             <div className="flex justify-end space-x-2 mt-4">
                                 <button
                                     type="button"
+                                    disabled={isSubmitting}
                                     className="px-4 py-2 border rounded hover:bg-gray-100"
                                     onClick={() => {
                                         onClose();
@@ -277,9 +283,10 @@ const EventModal = ({
                                 </button>
                                 <button
                                     type="submit"
+                                    disabled={isSubmitting}
                                     className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                                 >
-                                    Save
+                                    {isSubmitting ? "Saving…" : "Save"}
                                 </button>
                             </div>
                         </Form>

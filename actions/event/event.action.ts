@@ -25,8 +25,11 @@ export const processEventCreation = async (formData: FormData) => {
     };
 
     const date = new Date(formData.get("date") as string).getTime();
-    const from = new Date(formData.get("from") as string).getTime();
-    const to = new Date(formData.get("to") as string).getTime();
+    const from = new Date((formData.get("from") || formData.get("date")) as string).getTime();
+    const to = new Date((formData.get("to") || formData.get("from") || formData.get("date")) as string).getTime();
+    if (![date, from, to].every(Number.isFinite) || to < from) {
+      return { success: false, errorMessage: "Enter valid dates with the end on or after the start." };
+    }
     const price = parseFloat(formData.get("price") as string);
     const url = formData.get("url") as string;
     const active = formData.get("active") === "true";
@@ -68,6 +71,8 @@ export const processEventCreation = async (formData: FormData) => {
     console.log("[CREATE] Saving event to Firestore:", newEvent);
     const result = await addEvent(newEvent);
 
+    if (!result.success && coverImageUrl) await deleteStorageFile(coverImageUrl);
+
     if (result.success) {
       console.log("[CREATE] Event successfully saved.");
     } else {
@@ -106,8 +111,11 @@ export const processEventUpdate = async (
     };
 
     const date = new Date(formData.get("date") as string).getTime();
-    const from = new Date(formData.get("from") as string).getTime();
-    const to = new Date(formData.get("to") as string).getTime();
+    const from = new Date((formData.get("from") || formData.get("date")) as string).getTime();
+    const to = new Date((formData.get("to") || formData.get("from") || formData.get("date")) as string).getTime();
+    if (![date, from, to].every(Number.isFinite) || to < from) {
+      return { success: false, errorMessage: "Enter valid dates with the end on or after the start." };
+    }
     const price = parseFloat(formData.get("price") as string);
     const url = formData.get("url") as string;
     const active = formData.get("active") === "true";
@@ -118,11 +126,7 @@ export const processEventUpdate = async (
     // ✅ Replace cover image if new image is uploaded
     if (image && image.size > 0) {
       console.log("[UPDATE] Replacing cover image...");
-      if (coverImageUrl) {
-        await deleteStorageFile(coverImageUrl);
-      }
-
-      const folderPath = `events/${directoryName ?? `${sanitizeString(name.en)}-${Date.now()}`}`;
+      const folderPath = `events/${directoryName ?? sanitizeString(name.en)}-${crypto.randomUUID()}`;
       const uploadResult = await handleOptionalImageUpload(image, folderPath, "cover");
 
       if (uploadResult.error || !uploadResult.url) {
@@ -154,6 +158,11 @@ export const processEventUpdate = async (
 
     console.log("[UPDATE] Saving updated event:", updatedEvent);
     const result = await updateEvent(updatedEvent);
+
+    if (coverImageUrl !== event.coverImageUrl) {
+      const unusedImage = result.success ? event.coverImageUrl : coverImageUrl;
+      if (unusedImage) await deleteStorageFile(unusedImage);
+    }
 
     if (result.success) {
       console.log("[UPDATE] Event successfully updated.");

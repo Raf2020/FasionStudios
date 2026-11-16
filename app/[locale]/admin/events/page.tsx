@@ -49,21 +49,31 @@ const AdminEventPage = () => {
         setEditingEvent(null);
     };
     const handleSubmit = async (formData: FormData, isEdit: boolean) => {
-        let result;
-        if (editingEvent && isEdit) {
-            result = await processEventUpdate(editingEvent, formData);
-        } else {
-            result = await processEventCreation(formData);
-        }
-        if (result.success) {
-            toast.success(isEdit ? "Event updated!" : "Event created!");
-            await fetchEvents();
+        try {
+            const result = editingEvent && isEdit
+                ? await processEventUpdate(editingEvent, formData)
+                : await processEventCreation(formData);
+
+            if (!result.success) {
+                toast.error(result.errorMessage || "Unable to save the event.");
+                return;
+            }
+
             handleModalClose();
-        } else {
-            toast.error(result.errorMessage || "Something went wrong.");
+            toast.success(isEdit ? "Event updated!" : "Event created!");
+        } catch (error) {
+            console.error("Event save request failed:", error);
+            toast.error("Unable to save the event. Check the event list before retrying.");
+            return;
+        }
+
+        try {
+            await fetchEvents();
+        } catch (error) {
+            console.error("Event list refresh failed:", error);
+            toast.error("Event saved. Reload the page to refresh the list.");
         }
     };
-    console.log(events);
     return (
         <div className="p-6">
             <Toaster />
