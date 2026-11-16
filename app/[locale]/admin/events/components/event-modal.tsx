@@ -57,8 +57,8 @@ const EventModal = ({
     }, [imagePreview]);
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded shadow-md w-full max-w-lg max-h-[90dvh] overflow-y-auto relative">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-3 sm:p-6">
+            <div className="bg-white p-4 sm:p-6 rounded shadow-md w-full max-w-lg max-h-[90dvh] overflow-y-auto relative">
                 <h2 className="text-xl font-semibold mb-4">
                     {editingEvent ? "Edit Event" : "Create Event"}
                 </h2>
@@ -137,8 +137,8 @@ const EventModal = ({
                                 component="div"
                                 className="text-red-500 text-sm"
                             />
-                            <div className="flex gap-2">
-                                <div className="w-1/2">
+                            <div className="grid gap-2 sm:grid-cols-2">
+                                <div className="min-w-0">
                                     <label className="block font-semibold">Start date (optional)</label>
                                     <Field
                                         name="from"
@@ -151,7 +151,7 @@ const EventModal = ({
                                         className="text-red-500 text-sm"
                                     />
                                 </div>
-                                <div className="w-1/2">
+                                <div className="min-w-0">
                                     <label className="block font-semibold">End date (optional)</label>
                                     <Field
                                         name="to"

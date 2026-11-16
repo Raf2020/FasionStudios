@@ -10,7 +10,7 @@ export default function AdminLayout({
     <AdminRequired>
       <div className="w-full">
         <AdminHeader />
-        <div className="w-full py-10 px-6 sm:px-15">{children}</div>
+        <div className="mx-auto w-full min-w-0 max-w-screen-2xl px-4 py-5 sm:px-6 sm:py-8 lg:px-8">{children}</div>
       </div>
     </AdminRequired>
   );

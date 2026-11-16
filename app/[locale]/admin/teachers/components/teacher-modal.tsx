@@ -50,8 +50,8 @@ const TeacherModal = ({
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded shadow-md w-full max-w-lg relative overflow-y-auto max-h-screen">
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-3 sm:p-6">
+      <div className="bg-white p-4 sm:p-6 rounded shadow-md w-full max-w-lg relative overflow-y-auto max-h-[calc(100dvh-3rem)]">
         <h2 className="text-xl font-semibold mb-4">
           {editingTeacher ? "Edit Teacher" : "Create Teacher"}
         </h2>
